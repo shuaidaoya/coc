@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部落冲突 - 文苑阁</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            background-image: url('https://images.contentstack.io/v3/assets/blt370612131b6e0756/blt6d0d5a4b1e6a6d5b/5f7f0b2a4a7e2c0f03e4c2a4/Homepage_Background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        }
+        
+        .clash-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .clash-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(226, 232, 240, 0.3);
+        }
+        
+        .member-card {
+            background: rgba(30, 41, 59, 0.6);
+            transition: all 0.3s ease;
+        }
+        
+        .member-card:hover {
+            transform: scale(1.03);
+            background: rgba(30, 41, 59, 0.8);
+        }
+        
+        .trophy-gold {
+            color: #fbbf24;
+        }
+        
+        .trophy-silver {
+            color: #e5e7eb;
+        }
+        
+        .trophy-bronze {
+            color: #b45309;
+        }
+        
+        .clan-badge {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .game-feature-icon {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <img class="h-10" src="/imgs/coc.png" alt="部落冲突">
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">首页</a>
+                            <a href="#clan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">文苑阁</a>
+                            <a href="#members" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">部落成员</a>
+                            <a href="#game" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">游戏资料</a>
+                            <a href="#join" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">加入我们</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-download mr-2"></i>下载游戏
+                        </button>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <span class="sr-only">打开主菜单</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">首页</a>
+                <a href="#clan" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">文苑阁</a>
+                <a href="#members" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">部落成员</a>
+                <a href="#game" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">游戏资料</a>
+                <a href="#join" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">加入我们</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">下载游戏</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/20 to-slate-900/90"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+                        <span class="text-blue-400">部落冲突</span> - 文苑阁
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 mb-8">
+                        加入我们，体验最激烈的部落战争！文苑阁是一个活跃、友好的部落，致力于打造顶级游戏体验。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#join" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition flex items-center">
+                            <i class="fas fa-users mr-2"></i> 立即加入
+                        </a>
+                        <a href="#game" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition flex items-center">
+                            <i class="fas fa-info-circle mr-2"></i> 游戏介绍
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative floating">
+                        <img src="/imgs/野蛮人之王.png" alt="部落冲突英雄" class="max-w-md w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部落介绍 -->
+    <section id="clan" class="py-20 bg-slate-900/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">文苑阁部落</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    文苑阁是一个活跃的部落，我们致力于打造一个友好、互助的游戏环境，欢迎各路玩家加入我们的大家庭！
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 mb-16">
+                <div class="clan-badge">
+                    <i class="fas fa-crown text-4xl text-yellow-400"></i>
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">文苑阁</h3>
+                    <p class="text-gray-400 mb-4">#2QYYOV89C</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-trophy mr-2"></i>
+                            <span>部落等级: 5</span>
+                        </div>
+                        <div class="flex items-center text-blue-400">
+                            <i class="fas fa-users mr-2"></i>
+                            <span>成员: 31/50</span>
+                        </div>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-flag mr-2"></i>
+                            <span>金杯联赛积分：22628</span>
+                        </div>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-flag mr-2"></i>
+                            <span>所需奖杯：1600</span>
+                        </div>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-flag mr-2"></i>
+                            <span>所需大本营等级：12</span>
+                        </div>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-flag mr-2"></i>
+                            <span>荣誉度：7655750</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="clash-card rounded-xl p-8">
+                    <div class="text-blue-400 text-5xl mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">部落规则</h3>
+                    <p class="text-gray-300">
+                        1. 积极参与部落战和部落竞赛<br>
+                        2. 保持活跃，拒绝躺平<br>
+                        3. 尊重其他成员，禁止恶意行为<br>
+                        4. 首领和副首领的决定为最终决定<br>
+                        5.有任何问题可以联系首领和副首领<br>
+                        6. 禁止使用任何形式的广告、刷屏等行为
+                    </p>
+                </div>
+                
+                <div class="clash-card rounded-xl p-8">
+                    <div class="text-yellow-400 text-5xl mb-4">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">部落公告</h3>
+                    <p class="text-gray-300">
+                        文能提笔安天下，武能开图定乾坤<br>
+                        部落招募活跃玩家，内置双奶，拒绝躺平<br>
+                        部落战连开、都城共建，联赛全力冲榜
+                    </p>
+                </div>
+                
+                <div class="clash-card rounded-xl p-8">
+                    <div class="text-green-400 text-5xl mb-4">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">特别提醒</h3>
+                    <p class="text-gray-300">
+                        每日奶号捐兵时间4：00-3：00<br>
+                        不支持法术：复苏<br>
+                        攻城机器目前仅支持前三个<br>
+                        部落战优先打对位，打完打上一位或下一位<br>
+                        奶号由魔神提供，有任何问题可以联系魔神
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部落成员 -->
+    <section id="members" class="py-20 bg-slate-800/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">部落成员</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    认识我们强大的部落成员团队，每位成员都为部落的荣耀贡献着自己的力量。
+                </p>
+            </div>
+            
+            <div class="flex justify-center mb-10">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                    <button type="button" class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">
+                        全部成员
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium bg-gray-700 text-gray-300 hover:bg-gray-600">
+                        首领 & 副首领
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium bg-gray-700 text-gray-300 hover:bg-gray-600">
+                        长老
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-700 text-gray-300 hover:bg-gray-600">
+                        成员
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- 首领 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-blue-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold text-white">
+                            W
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">绝战到底</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fas fa-crown mr-1"></i>
+                                <span>首领</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">4753</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳:</span>
+                            <span class="text-white font-medium">5359</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">16</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 副首领 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-purple-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-2xl font-bold text-white">
+                            S
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">魔神</h3>
+                            <div class="flex items-center text-purple-400 text-sm">
+                                <i class="fas fa-star mr-1"></i>
+                                <span>副首领</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2296</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">3020</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">15</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 副首领 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-purple-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-2xl font-bold text-white">
+                            S
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">天朝</h3>
+                            <div class="flex items-center text-purple-400 text-sm">
+                                <i class="fas fa-star mr-1"></i>
+                                <span>副首领</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2887</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">3695</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">14</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 长老 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-green-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-2xl font-bold text-white">
+                            Y
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">采野果</h3>
+                            <div class="flex items-center text-green-400 text-sm">
+                                <i class="fas fa-award mr-1"></i>
+                                <span>长老</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">4243</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">5094</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">17</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 长老 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-green-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-2xl font-bold text-white">
+                            Y
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">小卤蛋</h3>
+                            <div class="flex items-center text-green-400 text-sm">
+                                <i class="fas fa-award mr-1"></i>
+                                <span>长老</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">4478</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">4667</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">15</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 长老 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-green-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-2xl font-bold text-white">
+                            Y
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">心在痛める</h3>
+                            <div class="flex items-center text-green-400 text-sm">
+                                <i class="fas fa-award mr-1"></i>
+                                <span>长老</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">3194</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">3391</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">13</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 长老 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-green-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-2xl font-bold text-white">
+                            Y
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">辉辉</h3>
+                            <div class="flex items-center text-green-400 text-sm">
+                                <i class="fas fa-award mr-1"></i>
+                                <span>长老</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2682</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">3473</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">13</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 长老 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-green-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-2xl font-bold text-white">
+                            Y
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">天煞魔君</h3>
+                            <div class="flex items-center text-green-400 text-sm">
+                                <i class="fas fa-award mr-1"></i>
+                                <span>长老</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2759</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">2878</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">13</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 长老 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-green-900/50 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-2xl font-bold text-white">
+                            Y
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">时道</h3>
+                            <div class="flex items-center text-green-400 text-sm">
+                                <i class="fas fa-award mr-1"></i>
+                                <span>长老</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">1961</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">1986</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">12</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">部落元老</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 成员 -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                            Q
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">老字号豆浆粉</h3>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>成员</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2911</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">3123</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">14</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">2025年1月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 更多成员... -->
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                            H
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">孤。傲</h3>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>成员</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">3160</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">3214</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">14</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">2025年1月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                            X
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">qwer</h3>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>成员</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2560</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">2865</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">14</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">2025年1月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                            L
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">以后想遇到的还是你</h3>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>成员</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">1902</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">5000</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">16</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">2025年1月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                            F
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">梅林峰水村</h3>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>成员</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">3231</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">3383</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">16</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">2025年1月</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                            F
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">胖胖鱼</h3>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>成员</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2488</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">2498</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">13</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">2025年1月</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 p-4 flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                            X
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-white">永恒</h3>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>成员</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">目前奖杯:</span>
+                            <span class="text-white font-medium">2377</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">历史最佳</span>
+                            <span class="text-white font-medium">2849</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">大本营等级</span>
+                            <span class="text-white font-medium">13</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">加入:</span>
+                            <span class="text-white font-medium">2025年1月</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+            
+            <div class="mt-10 text-center">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition">
+                    查看更多成员 <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏资料 -->
+    <section id="game" class="py-20 bg-slate-900/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">游戏资料</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    探索部落冲突的精彩世界，了解游戏机制、兵种、防御和策略。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="clash-card rounded-xl p-6 text-center">
+                    <div class="game-feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">村庄建设</h3>
+                    <p class="text-gray-300">
+                        从一个小村庄开始，逐步建设你的防御工事、资源收集器和军队训练营，打造坚不可摧的堡垒。
+                    </p>
+                </div>
+                
+                <div class="clash-card rounded-xl p-6 text-center">
+                    <div class="game-feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">部落系统</h3>
+                    <p class="text-gray-300">
+                        加入或创建部落，与盟友一起参与部落战、部落竞赛和友谊战，体验团队合作的乐趣。
+                    </p>
+                </div>
+                
+                <div class="clash-card rounded-xl p-6 text-center">
+                    <div class="game-feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">联赛系统</h3>
+                    <p class="text-gray-300">
+                        从青铜联赛到泰坦联赛，挑战自我提升排名，争夺更高的荣誉和更丰厚的奖励。
+                    </p>
+                </div>
+                
+                <div class="clash-card rounded-xl p-6 text-center">
+                    <div class="game-feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">防御策略</h3>
+                    <p class="text-gray-300">
+                        学习各种防御布局和陷阱设置，保护你的资源不被掠夺，成为难以攻克的堡垒。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 兵种介绍 -->
+                <div class="clash-card rounded-xl overflow-hidden">
+                    <div class="bg-red-900/50 p-4">
+                        <h3 class="text-xl font-bold text-white flex items-center">
+                            <i class="fas fa-fighter-jet mr-2"></i> 热门兵种
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/野蛮人.png" alt="野蛮人" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">野蛮人</h4>
+                                <p class="text-sm text-gray-400">近战单位，训练成本低，适合初期使用</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/弓箭手.png" alt="弓箭手" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">弓箭手</h4>
+                                <p class="text-sm text-gray-400">远程单位，可攻击空中和地面目标</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/巨人.png" alt="巨人" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">巨人</h4>
+                                <p class="text-sm text-gray-400">高生命值，优先攻击防御建筑</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/气球.png" alt="气球" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">气球</h4>
+                                <p class="text-sm text-gray-400">空中单位，优先攻击防御建筑</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <img src="/imgs/飞龙.png" alt="飞龙" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">飞龙</h4>
+                                <p class="text-sm text-gray-400">空中单位，范围伤害，强力但昂贵</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 英雄介绍 -->
+                <div class="clash-card rounded-xl overflow-hidden">
+                    <div class="bg-blue-900/50 p-4">
+                        <h3 class="text-xl font-bold text-white flex items-center">
+                            <i class="fas fa-crown mr-2"></i> 英雄单位
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/野蛮人之王.png" alt="野蛮人之王" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">野蛮人之王</h4>
+                                <p class="text-sm text-gray-400">地面近战英雄，技能可召唤野蛮人</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/弓箭女皇.webp" alt="弓箭女皇" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">弓箭女皇</h4>
+                                <p class="text-sm text-gray-400">远程英雄，可隐身并提升攻击速度</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/大守护者.png" alt="大守护者" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">大守护者</h4>
+                                <p class="text-sm text-gray-400">可切换地面/空中模式，提供生命光环</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                            <img src="/imgs/飞盾战神.webp" alt="飞盾战神" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">飞盾战神</h4>
+                                <p class="text-sm text-gray-400">投掷长矛，技能可跳跃城墙</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <img src="/imgs/亡灵王子.webp" alt="亡灵王子" class="w-16 h-16 object-contain">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-white">亡灵王子</h4>
+                                <p class="text-sm text-gray-400">会在空中发射暗黑粘液，对防御建筑和部队造成伤害</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 游戏模式 -->
+                <div class="clash-card rounded-xl overflow-hidden">
+                    <div class="bg-purple-900/50 p-4">
+                        <h3 class="text-xl font-bold text-white flex items-center">
+                            <i class="fas fa-gamepad mr-2"></i> 游戏模式
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <i class="fas fa-flag text-red-400 mr-2"></i> 单人模式
+                            </h4>
+                            <p class="text-sm text-gray-300">
+                                挑战哥布林关卡，获得额外资源和宝石奖励，测试你的进攻策略。
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <i class="fas fa-users text-blue-400 mr-2"></i> 部落战
+                            </h4>
+                            <p class="text-sm text-gray-300">
+                                与其他部落对抗，通过两次进攻获得胜利，赢得丰厚的战争奖励。
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <i class="fas fa-trophy text-yellow-400 mr-2"></i> 部落联赛
+                            </h4>
+                            <p class="text-sm text-gray-300">
+                                每月一次的联赛活动，与实力相当的部落竞争，提升联赛等级。
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <i class="fas fa-medal text-green-400 mr-2"></i> 部落竞赛
+                            </h4>
+                            <p class="text-sm text-gray-300">
+                                完成各种任务获得积分，全部落共同努力解锁丰厚奖励。
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <i class="fas fa-handshake text-purple-400 mr-2"></i> 友谊战
+                            </h4>
+                            <p class="text-sm text-gray-300">
+                                与部落成员进行练习对战，不消耗兵力，测试新的进攻策略。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 加入我们 -->
+    <section id="join" class="py-20 bg-gradient-to-b from-slate-900 to-blue-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">加入文苑阁</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    我们正在寻找活跃的玩家加入我们的大家庭！填写以下表格申请加入，或直接搜索部落标签#ABC123。
+                </p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="lg:w-1/2">
+                    <div class="clash-card rounded-xl p-8 h-full">
+                        <h3 class="text-2xl font-bold text-white mb-6">申请加入</h3>
+                        
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">游戏名称</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="tag" class="block text-sm font-medium text-gray-300 mb-2">玩家标签</label>
+                                <input type="text" id="tag" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="#ABC123">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="trophies" class="block text-sm font-medium text-gray-300 mb-2">当前奖杯数</label>
+                                <input type="number" id="trophies" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="townhall" class="block text-sm font-medium text-gray-300 mb-2">大本营等级</label>
+                                <select id="townhall" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">选择大本营等级</option>
+                                    <option value="15">15级</option>
+                                    <option value="14">14级</option>
+                                    <option value="13">13级</option>
+                                    <option value="12">12级</option>
+                                    <option value="11">11级</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">申请留言</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="简单介绍一下自己，为什么想加入我们部落..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition">
+                                提交申请 <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="clash-card rounded-xl p-8 h-full">
+                        <h3 class="text-2xl font-bold text-white mb-6">为什么选择文苑阁？</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-900 text-blue-400">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-white">高胜率部落战</h4>
+                                    <p class="mt-1 text-gray-300">
+                                        我们拥有专业的战术指导团队，部落战胜率保持在85%以上，帮助你快速提升进攻技巧。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-900 text-green-400">
+                                        <i class="fas fa-gift"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-white">快速捐兵</h4>
+                                    <p class="mt-1 text-gray-300">
+                                        24小时活跃捐兵，高级兵种秒捐，满足你的各种战术需求，助你轻松三星。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-yellow-900 text-yellow-400">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-white">部落竞赛满分</h4>
+                                    <p class="mt-1 text-gray-300">
+                                        每期部落竞赛必满，全员参与，确保每位成员都能获得最高奖励。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-900 text-purple-400">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-white">友好社区</h4>
+                                    <p class="mt-1 text-gray-300">
+                                        我们注重团队氛围，定期组织友谊战教学和战术讨论，新手也能快速成长。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-900 text-red-400">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-white">定期活动</h4>
+                                    <p class="mt-1 text-gray-300">
+                                        每月举办内部比赛，优胜者将获得宝石奖励，还有机会晋升为部落管理。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10 bg-slate-800/50 p-6 rounded-lg">
+                            <h4 class="text-lg font-bold text-white mb-3">加入要求</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                                    <span>大本营12级及以上</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                                    <span>奖杯数1600以上</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                                    <span>每周至少参与一次部落战</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                                    <span>每周捐兵不少于200</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
+                                    <span>积极参与部落竞赛</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-slate-900 border-t border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">关于文苑阁</h3>
+                    <p class="text-gray-400">
+                        文苑阁是一个活跃的部落冲突部落，成立于2024年，致力于为玩家提供最佳的游戏体验和社区环境。
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-blue-400 transition">首页</a></li>
+                        <li><a href="#clan" class="text-gray-400 hover:text-blue-400 transition">文苑阁</a></li>
+                        <li><a href="#members" class="text-gray-400 hover:text-blue-400 transition">部落成员</a></li>
+                        <li><a href="#game" class="text-gray-400 hover:text-blue-400 transition">游戏资料</a></li>
+                        <li><a href="#join" class="text-gray-400 hover:text-blue-400 transition">加入我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">游戏资源</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">官方论坛</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">策略指南</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">兵种数据</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">防御布局</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">更新日志</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">联系我们</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-hashtag mr-2"></i>
+                            <span>部落标签: #2QYYOV89C</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fab fa-discord mr-2"></i>
+                            <span>Discord: 文苑阁</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fab fa-qq mr-2"></i>
+                            <span>QQ群: 暂无</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>Email: shuaidaoya@gmail.com</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-6 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">
+                    &copy; 2025 文苑阁部落. 保留所有权利.
+                </p>
+                <p class="text-gray-500 text-sm mt-4 md:mt-0">
+                    部落冲突是Supercell的注册商标，本网站为粉丝制作，与Supercell无关。
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果是移动端菜单，点击后关闭菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 表单提交
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('申请已提交！我们会尽快审核您的申请。');
+                form.reset();
+            });
+        }
+    </script>
+</body>
+</html>
