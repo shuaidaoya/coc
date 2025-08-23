@@ -3,19 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="部落冲突文苑阁部落官方网站 - 加入我们，体验最激烈的部落战争！">
+    <meta name="keywords" content="部落冲突,文苑阁,部落,Clash of Clans,游戏">
+    <meta name="author" content="文苑阁部落">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="部落冲突 - 文苑阁">
+    <meta property="og:description" content="加入我们，体验最激烈的部落战争！">
+    <meta property="og:image" content="/imgs/coc.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="部落冲突 - 文苑阁">
+    <meta property="twitter:description" content="加入我们，体验最激烈的部落战争！">
+    <meta property="twitter:image" content="/imgs/coc.png">
+    
     <title>部落冲突 - 文苑阁</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/imgs/coc.png">
+    <link rel="apple-touch-icon" href="/imgs/coc.png">
+    
+    <!-- External CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 部落配置文件 -->
+    <script src="config.js"></script>
+    
+    <!-- Custom CSS -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #1d4ed8;
+            --accent-color: #fbbf24;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: rgba(15, 23, 42, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
         
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             background-image: url('https://images.contentstack.io/v3/assets/blt370612131b6e0756/blt6d0d5a4b1e6a6d5b/5f7f0b2a4a7e2c0f03e4c2a4/Homepage_Background.jpg');
             background-size: cover;
             background-attachment: fixed;
+            line-height: 1.6;
         }
         
         .hero-gradient {
@@ -23,15 +68,15 @@
         }
         
         .clash-card {
-            background: rgba(15, 23, 42, 0.7);
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
         
         .clash-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px var(--shadow-color);
             border-color: rgba(226, 232, 240, 0.3);
         }
         
@@ -45,22 +90,14 @@
             background: rgba(30, 41, 59, 0.8);
         }
         
-        .trophy-gold {
-            color: #fbbf24;
-        }
-        
-        .trophy-silver {
-            color: #e5e7eb;
-        }
-        
-        .trophy-bronze {
-            color: #b45309;
-        }
+        .trophy-gold { color: var(--accent-color); }
+        .trophy-silver { color: #e5e7eb; }
+        .trophy-bronze { color: #b45309; }
         
         .clan-badge {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -79,7 +116,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #3b82f6;
+            background: var(--primary-color);
             transition: width 0.3s ease;
         }
         
@@ -89,7 +126,7 @@
         
         .game-feature-icon {
             font-size: 2.5rem;
-            color: #3b82f6;
+            color: var(--primary-color);
             margin-bottom: 1rem;
         }
         
@@ -102,177 +139,235 @@
         .floating {
             animation: float 3s ease-in-out infinite;
         }
+        
+        /* 加载动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 无障碍性改进 */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* 焦点样式 */
+        .focus-visible:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
     <!-- 导航栏 -->
-    <nav class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <img class="h-10" src="/imgs/coc.png" alt="部落冲突">
+    <header>
+        <nav class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-700" role="navigation" aria-label="主导航">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="#home" class="flex items-center" aria-label="返回首页">
+                                <img class="h-10 w-auto" src="/imgs/coc.png" alt="部落冲突Logo" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4">
+                                <a href="#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition focus-visible:focus" aria-current="page">首页</a>
+                                <a href="#clan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition focus-visible:focus">文苑阁</a>
+                                <a href="#members" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition focus-visible:focus">部落成员</a>
+                                <a href="#game" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition focus-visible:focus">游戏资料</a>
+                                <a href="#join" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition focus-visible:focus">加入我们</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">首页</a>
-                            <a href="#clan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">文苑阁</a>
-                            <a href="#members" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">部落成员</a>
-                            <a href="#game" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">游戏资料</a>
-                            <a href="#join" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-white hover:text-blue-400 transition">加入我们</a>
+                        <div class="ml-4 flex items-center md:ml-6">
+                            <a href="https://coc.qq.com/" 
+                               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition focus-visible:focus" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               aria-label="下载部落冲突游戏（在新窗口打开）">
+                                <i class="fas fa-download mr-2" aria-hidden="true"></i>下载游戏
+                            </a>
+                        </div>
+                    </div>
+                    <div class="-mr-2 flex md:hidden">
+                        <button type="button" 
+                                id="mobile-menu-button" 
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus-visible:focus focus:outline-none"
+                                aria-expanded="false"
+                                aria-controls="mobile-menu"
+                                aria-label="切换移动端菜单">
+                            <span class="sr-only">打开主菜单</span>
+                            <i class="fas fa-bars" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 移动端菜单 -->
+            <div class="hidden md:hidden" id="mobile-menu" role="menu" aria-labelledby="mobile-menu-button">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700 focus-visible:focus" role="menuitem" aria-current="page">首页</a>
+                    <a href="#clan" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700 focus-visible:focus" role="menuitem">文苑阁</a>
+                    <a href="#members" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700 focus-visible:focus" role="menuitem">部落成员</a>
+                    <a href="#game" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700 focus-visible:focus" role="menuitem">游戏资料</a>
+                    <a href="#join" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700 focus-visible:focus" role="menuitem">加入我们</a>
+                    <a href="https://coc.qq.com/" 
+                       class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700 focus-visible:focus" 
+                       role="menuitem"
+                       target="_blank" 
+                       rel="noopener noreferrer">下载游戏</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 英雄区域 -->
+    <main>
+        <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden" aria-labelledby="hero-title">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/20 to-slate-900/90"></div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0 fade-in">
+                        <h1 id="hero-title" class="text-4xl md:text-6xl font-bold mb-6 text-white">
+                            <span class="text-blue-400">部落冲突</span> - 文苑阁
+                        </h1>
+                        <p class="text-xl md:text-2xl text-gray-300 mb-8">
+                            加入我们，体验最激烈的部落战争！文苑阁是一个活跃、友好的部落，致力于打造顶级游戏体验。
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#join" 
+                               class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition flex items-center focus-visible:focus"
+                               aria-label="申请加入文苑阁部落">
+                                <i class="fas fa-users mr-2" aria-hidden="true"></i> 立即加入
+                            </a>
+                            <a href="#game" 
+                               class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition flex items-center focus-visible:focus"
+                               aria-label="了解部落冲突游戏资料">
+                                <i class="fas fa-info-circle mr-2" aria-hidden="true"></i> 游戏介绍
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center fade-in">
+                        <div class="relative floating">
+                            <img src="/imgs/野蛮人之王.png" 
+                                 alt="野蛮人之王英雄角色" 
+                                 class="max-w-md w-full"
+                                 loading="lazy"
+                                 width="400"
+                                 height="400">
                         </div>
                     </div>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-4 flex items-center md:ml-6">
-                        <a href="https://coc.qq.com/" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition" target="_blank">
-                        <i class="fas fa-download mr-2"></i>下载游戏
-                    </a>
-                    </div>
-                </div>
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
-                        <span class="sr-only">打开主菜单</span>
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
             </div>
-        </div>
-        
-        <!-- 移动端菜单 -->
-        <div class="hidden md:hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">首页</a>
-                <a href="#clan" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">文苑阁</a>
-                <a href="#members" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">部落成员</a>
-                <a href="#game" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">游戏资料</a>
-                <a href="#join" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">加入我们</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">下载游戏</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 英雄区域 -->
-    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/20 to-slate-900/90"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
-                        <span class="text-blue-400">部落冲突</span> - 文苑阁
-                    </h1>
-                    <p class="text-xl md:text-2xl text-gray-300 mb-8">
-                        加入我们，体验最激烈的部落战争！文苑阁是一个活跃、友好的部落，致力于打造顶级游戏体验。
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#join" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition flex items-center">
-                            <i class="fas fa-users mr-2"></i> 立即加入
-                        </a>
-                        <a href="#game" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition flex items-center">
-                            <i class="fas fa-info-circle mr-2"></i> 游戏介绍
-                        </a>
-                    </div>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <div class="relative floating">
-                        <img src="/imgs/野蛮人之王.png" alt="部落冲突英雄" class="max-w-md w-full">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
     <!-- 部落介绍 -->
-    <section id="clan" class="py-20 bg-slate-900/90">
+    <section id="clan" class="py-20 bg-slate-900/90" aria-labelledby="clan-title">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">文苑阁部落</h2>
+            <div class="text-center mb-16 fade-in">
+                <h2 id="clan-title" class="text-3xl md:text-5xl font-bold text-white mb-4">文苑阁部落</h2>
                 <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
                 <p class="text-xl text-gray-300 max-w-3xl mx-auto">
                     文苑阁是一个活跃的部落，我们致力于打造一个友好、互助的游戏环境，欢迎各路玩家加入我们的大家庭！
                 </p>
             </div>
             
-            <div class="flex flex-col md:flex-row items-center justify-center gap-10 mb-16">
-                <div class="clan-badge">
-                    <i class="fas fa-crown text-4xl text-yellow-400"></i>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 mb-16 fade-in">
+                <div class="clan-badge" aria-label="文苑阁部落徽章">
+                    <i class="fas fa-crown text-4xl text-yellow-400" aria-hidden="true"></i>
                 </div>
                 <div class="text-center md:text-left">
                     <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">文苑阁</h3>
-                    <p class="text-gray-400 mb-4">#2QYYOV89C</p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                    <p class="text-gray-400 mb-4" aria-label="部落标签">#2QYYOV89C</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="flex items-center text-yellow-400">
-                            <i class="fas fa-trophy mr-2"></i>
-                            <span>部落等级: 5</span>
+                            <i class="fas fa-trophy mr-2" aria-hidden="true"></i>
+                            <span>部落等级: <strong>5</strong></span>
                         </div>
                         <div class="flex items-center text-blue-400">
-                            <i class="fas fa-users mr-2"></i>
-                            <span>成员: 31/50</span>
-                        </div>
-                       <div class="flex items-center text-green-400">
-                            <i class="fas fa-medal mr-2"></i> <!-- 替换图标 -->
-                            <span>金杯联赛积分：22628</span>
+                            <i class="fas fa-users mr-2" aria-hidden="true"></i>
+                            <span>成员: <strong>31/50</strong></span>
                         </div>
                         <div class="flex items-center text-green-400">
-                            <i class="fas fa-trophy mr-2"></i> <!-- 替换图标 -->
-                            <span>所需奖杯：1600</span>
+                            <i class="fas fa-medal mr-2" aria-hidden="true"></i>
+                            <span>金杯联赛积分：<strong>22628</strong></span>
                         </div>
                         <div class="flex items-center text-green-400">
-                            <i class="fas fa-home mr-2"></i> <!-- 替换图标 -->
-                            <span>所需大本营等级：12</span>
+                            <i class="fas fa-trophy mr-2" aria-hidden="true"></i>
+                            <span>所需奖杯：<strong>1600</strong></span>
                         </div>
                         <div class="flex items-center text-green-400">
-                            <i class="fas fa-star mr-2"></i> <!-- 替换图标 -->
-                            <span>荣誉度：7655750</span>
+                            <i class="fas fa-home mr-2" aria-hidden="true"></i>
+                            <span>所需大本营等级：<strong>12</strong></span>
+                        </div>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-star mr-2" aria-hidden="true"></i>
+                            <span>荣誉度：<strong>7655750</strong></span>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="clash-card rounded-xl p-8">
+                <article class="clash-card rounded-xl p-8 fade-in">
                     <div class="text-blue-400 text-5xl mb-4">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">部落规则</h3>
-                    <p class="text-gray-300">
-                        1. 积极参与部落战和部落竞赛<br>
-                        2. 保持活跃，拒绝躺平<br>
-                        3. 尊重其他成员，禁止恶意行为<br>
-                        4. 首领和副首领的决定为最终决定<br>
-                        5.有任何问题可以联系首领和副首领<br>
-                        6. 禁止使用任何形式的广告、刷屏等行为
-                    </p>
-                </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>1. 积极参与部落战和部落竞赛</li>
+                        <li>2. 保持活跃，拒绝躺平</li>
+                        <li>3. 尊重其他成员，禁止恶意行为</li>
+                        <li>4. 首领和副首领的决定为最终决定</li>
+                        <li>5. 有任何问题可以联系首领和副首领</li>
+                        <li>6. 禁止使用任何形式的广告、刷屏等行为</li>
+                    </ul>
+                </article>
                 
-                <div class="clash-card rounded-xl p-8">
+                <article class="clash-card rounded-xl p-8 fade-in">
                     <div class="text-yellow-400 text-5xl mb-4">
-                        <i class="fas fa-trophy"></i>
+                        <i class="fas fa-trophy" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">部落公告</h3>
-                    <p class="text-gray-300">
-                        文能提笔安天下，武能开图定乾坤<br>
-                        部落招募活跃玩家，内置双奶，拒绝躺平<br>
-                        部落战连开、都城共建，联赛全力冲榜
-                    </p>
-                </div>
+                    <div class="text-gray-300 space-y-2">
+                        <p>文能提笔安天下，武能开图定乾坤</p>
+                        <p>部落招募活跃玩家，内置双奶，拒绝躺平</p>
+                        <p>部落战连开、都城共建，联赛全力冲榜</p>
+                    </div>
+                </article>
                 
-                <div class="clash-card rounded-xl p-8">
+                <article class="clash-card rounded-xl p-8 fade-in">
                     <div class="text-green-400 text-5xl mb-4">
-                        <i class="fas fa-calendar-alt"></i>
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">特别提醒</h3>
-                    <p class="text-gray-300">
-                        每日奶号捐兵时间4：00-3：00<br>
-                        不支持法术：复苏<br>
-                        攻城机器目前仅支持前三个<br>
-                        部落战优先打对位，打完打上一位或下一位<br>
-                        奶号由魔神提供，有任何问题可以联系魔神
-                    </p>
-                </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>每日奶号捐兵时间4：00-3：00</li>
+                        <li>不支持法术：复苏</li>
+                        <li>攻城机器目前仅支持前三个</li>
+                        <li>部落战优先打对位，打完打上一位或下一位</li>
+                        <li>奶号由魔神提供，有任何问题可以联系魔神</li>
+                    </ul>
+                </article>
             </div>
         </div>
     </section>
@@ -305,7 +400,7 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="members-grid">
                 <!-- 首领 -->
                 <div class="member-card rounded-lg overflow-hidden border border-gray-700">
                     <div class="bg-blue-900/50 p-4 flex items-center">
@@ -606,235 +701,240 @@
                     </div>
                 </div>
 
-                <!-- 成员 -->
-                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 p-4 flex items-center">
-                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
-                            Q
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-bold text-white">老字号豆浆粉</h3>
-                            <div class="flex items-center text-gray-400 text-sm">
-                                <i class="fas fa-user mr-1"></i>
-                                <span>成员</span>
+                <!-- 普通成员容器 - 默认折叠 -->
+                <div id="regular-members-container" class="hidden col-span-full">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- 成员 -->
+                        <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                            <div class="bg-gray-800 p-4 flex items-center">
+                                <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                                    Q
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-bold text-white">老字号豆浆粉</h3>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <i class="fas fa-user mr-1"></i>
+                                        <span>成员</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">目前奖杯:</span>
+                                    <span class="text-white font-medium">2911</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">历史最佳</span>
+                                    <span class="text-white font-medium">3123</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">大本营等级</span>
+                                    <span class="text-white font-medium">14</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">加入:</span>
+                                    <span class="text-white font-medium">2025年1月</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">目前奖杯:</span>
-                            <span class="text-white font-medium">2911</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">历史最佳</span>
-                            <span class="text-white font-medium">3123</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">大本营等级</span>
-                            <span class="text-white font-medium">14</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">加入:</span>
-                            <span class="text-white font-medium">2025年1月</span>
-                        </div>
-                    </div>
-                </div>
                 
-                <!-- 更多成员... -->
-                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 p-4 flex items-center">
-                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
-                            H
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-bold text-white">孤。傲</h3>
-                            <div class="flex items-center text-gray-400 text-sm">
-                                <i class="fas fa-user mr-1"></i>
-                                <span>成员</span>
+                        <!-- 更多成员... -->
+                        <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                            <div class="bg-gray-800 p-4 flex items-center">
+                                <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                                    H
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-bold text-white">孤。傲</h3>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <i class="fas fa-user mr-1"></i>
+                                        <span>成员</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">目前奖杯:</span>
+                                    <span class="text-white font-medium">3160</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">历史最佳</span>
+                                    <span class="text-white font-medium">3214</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">大本营等级</span>
+                                    <span class="text-white font-medium">14</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">加入:</span>
+                                    <span class="text-white font-medium">2025年1月</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">目前奖杯:</span>
-                            <span class="text-white font-medium">3160</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">历史最佳</span>
-                            <span class="text-white font-medium">3214</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">大本营等级</span>
-                            <span class="text-white font-medium">14</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">加入:</span>
-                            <span class="text-white font-medium">2025年1月</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 p-4 flex items-center">
-                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
-                            X
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-bold text-white">qwer</h3>
-                            <div class="flex items-center text-gray-400 text-sm">
-                                <i class="fas fa-user mr-1"></i>
-                                <span>成员</span>
+                        
+                        <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                            <div class="bg-gray-800 p-4 flex items-center">
+                                <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                                    X
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-bold text-white">qwer</h3>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <i class="fas fa-user mr-1"></i>
+                                        <span>成员</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">目前奖杯:</span>
+                                    <span class="text-white font-medium">2560</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">历史最佳</span>
+                                    <span class="text-white font-medium">2865</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">大本营等级</span>
+                                    <span class="text-white font-medium">14</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">加入:</span>
+                                    <span class="text-white font-medium">2025年1月</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">目前奖杯:</span>
-                            <span class="text-white font-medium">2560</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">历史最佳</span>
-                            <span class="text-white font-medium">2865</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">大本营等级</span>
-                            <span class="text-white font-medium">14</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">加入:</span>
-                            <span class="text-white font-medium">2025年1月</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 p-4 flex items-center">
-                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
-                            L
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-bold text-white">以后想遇到的还是你</h3>
-                            <div class="flex items-center text-gray-400 text-sm">
-                                <i class="fas fa-user mr-1"></i>
-                                <span>成员</span>
+                        
+                        <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                            <div class="bg-gray-800 p-4 flex items-center">
+                                <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                                    L
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-bold text-white">以后想遇到的还是你</h3>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <i class="fas fa-user mr-1"></i>
+                                        <span>成员</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">目前奖杯:</span>
+                                    <span class="text-white font-medium">1902</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">历史最佳</span>
+                                    <span class="text-white font-medium">5000</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">大本营等级</span>
+                                    <span class="text-white font-medium">16</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">加入:</span>
+                                    <span class="text-white font-medium">2025年1月</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">目前奖杯:</span>
-                            <span class="text-white font-medium">1902</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">历史最佳</span>
-                            <span class="text-white font-medium">5000</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">大本营等级</span>
-                            <span class="text-white font-medium">16</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">加入:</span>
-                            <span class="text-white font-medium">2025年1月</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 p-4 flex items-center">
-                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
-                            F
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-bold text-white">梅林峰水村</h3>
-                            <div class="flex items-center text-gray-400 text-sm">
-                                <i class="fas fa-user mr-1"></i>
-                                <span>成员</span>
+                        
+                        <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                            <div class="bg-gray-800 p-4 flex items-center">
+                                <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                                    F
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-bold text-white">梅林峰水村</h3>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <i class="fas fa-user mr-1"></i>
+                                        <span>成员</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">目前奖杯:</span>
+                                    <span class="text-white font-medium">3231</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">历史最佳</span>
+                                    <span class="text-white font-medium">3383</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">大本营等级</span>
+                                    <span class="text-white font-medium">16</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">加入:</span>
+                                    <span class="text-white font-medium">2025年1月</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">目前奖杯:</span>
-                            <span class="text-white font-medium">3231</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">历史最佳</span>
-                            <span class="text-white font-medium">3383</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">大本营等级</span>
-                            <span class="text-white font-medium">16</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">加入:</span>
-                            <span class="text-white font-medium">2025年1月</span>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 p-4 flex items-center">
-                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
-                            F
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-bold text-white">胖胖鱼</h3>
-                            <div class="flex items-center text-gray-400 text-sm">
-                                <i class="fas fa-user mr-1"></i>
-                                <span>成员</span>
+                    
+                        <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                            <div class="bg-gray-800 p-4 flex items-center">
+                                <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                                    F
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-bold text-white">胖胖鱼</h3>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <i class="fas fa-user mr-1"></i>
+                                        <span>成员</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">目前奖杯:</span>
+                                    <span class="text-white font-medium">2488</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">历史最佳</span>
+                                    <span class="text-white font-medium">2498</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">大本营等级</span>
+                                    <span class="text-white font-medium">13</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">加入:</span>
+                                    <span class="text-white font-medium">2025年1月</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">目前奖杯:</span>
-                            <span class="text-white font-medium">2488</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">历史最佳</span>
-                            <span class="text-white font-medium">2498</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">大本营等级</span>
-                            <span class="text-white font-medium">13</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">加入:</span>
-                            <span class="text-white font-medium">2025年1月</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="member-card rounded-lg overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 p-4 flex items-center">
-                        <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
-                            X
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-bold text-white">永恒</h3>
-                            <div class="flex items-center text-gray-400 text-sm">
-                                <i class="fas fa-user mr-1"></i>
-                                <span>成员</span>
+                        <div class="member-card rounded-lg overflow-hidden border border-gray-700">
+                            <div class="bg-gray-800 p-4 flex items-center">
+                                <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white">
+                                    X
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-bold text-white">永恒</h3>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <i class="fas fa-user mr-1"></i>
+                                        <span>成员</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">目前奖杯:</span>
-                            <span class="text-white font-medium">2377</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">历史最佳</span>
-                            <span class="text-white font-medium">2849</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-400">大本营等级</span>
-                            <span class="text-white font-medium">13</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">加入:</span>
-                            <span class="text-white font-medium">2025年1月</span>
+                            <div class="p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">目前奖杯:</span>
+                                    <span class="text-white font-medium">2377</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">历史最佳</span>
+                                    <span class="text-white font-medium">2849</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-400">大本营等级</span>
+                                    <span class="text-white font-medium">13</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">加入:</span>
+                                    <span class="text-white font-medium">2025年1月</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -842,8 +942,8 @@
         </div>        
             
             <div class="mt-10 text-center">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition">
-                    查看更多成员 <i class="fas fa-arrow-right ml-2"></i>
+                <button id="toggle-members-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition">
+                    查看更多成员 <i class="fas fa-chevron-down ml-2"></i>
                 </button>
             </div>
         </div>
@@ -1312,71 +1412,750 @@
     </button>
 
     <script>
-        // 移动端菜单切换
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // 部落冲突文苑阁网站 - 重构后的JavaScript功能
         
-        mobileMenuButton.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        // 配置对象
+        const CONFIG = {
+            scrollThreshold: 300,
+            animationDelay: 100,
+            mobileBreakpoint: 768,
+            debounceDelay: 150,
+            throttleLimit: 100
+        };
+        
+        // 工具函数库
+        const utils = {
+            // 防抖函数
+            debounce: (func, wait) => {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            },
+            
+            // 节流函数
+            throttle: (func, limit) => {
+                let inThrottle;
+                return function() {
+                    const args = arguments;
+                    const context = this;
+                    if (!inThrottle) {
+                        func.apply(context, args);
+                        inThrottle = true;
+                        setTimeout(() => inThrottle = false, limit);
+                    }
+                };
+            },
+            
+            // 检查元素是否在视口中
+            isInViewport: (element) => {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            },
+            
+            // 安全的DOM查询
+            safeQuerySelector: (selector) => {
+                try {
+                    return document.querySelector(selector);
+                } catch (error) {
+                    console.warn(`无效的选择器: ${selector}`, error);
+                    return null;
+                }
+            },
+            
+            // 安全的DOM查询所有
+            safeQuerySelectorAll: (selector) => {
+                try {
+                    return document.querySelectorAll(selector);
+                } catch (error) {
+                    console.warn(`无效的选择器: ${selector}`, error);
+                    return [];
+                }
             }
-        });
+        };
         
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // 移动端菜单管理类
+        class MobileMenu {
+            constructor() {
+                this.button = utils.safeQuerySelector('#mobile-menu-button');
+                this.menu = utils.safeQuerySelector('#mobile-menu');
+                this.isOpen = false;
+                
+                if (this.button && this.menu) {
+                    this.init();
+                }
+            }
+            
+            init() {
+                this.button.addEventListener('click', () => this.toggle());
+                this.button.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.toggle();
+                    }
+                });
+                
+                // 点击外部关闭菜单
+                document.addEventListener('click', (e) => {
+                    if (!this.button.contains(e.target) && !this.menu.contains(e.target)) {
+                        this.close();
+                    }
+                });
+                
+                // ESC键关闭菜单
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.close();
+                    }
+                });
+            }
+            
+            toggle() {
+                this.isOpen = !this.isOpen;
+                this.updateUI();
+                this.updateAccessibility();
+            }
+            
+            open() {
+                this.isOpen = true;
+                this.updateUI();
+                this.updateAccessibility();
+            }
+            
+            close() {
+                this.isOpen = false;
+                this.updateUI();
+                this.updateAccessibility();
+            }
+            
+            updateUI() {
+                if (this.isOpen) {
+                    this.menu.classList.remove('hidden');
+                    this.button.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+                    this.button.setAttribute('aria-expanded', 'true');
+                } else {
+                    this.menu.classList.add('hidden');
+                    this.button.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+                    this.button.setAttribute('aria-expanded', 'false');
+                }
+            }
+            
+            updateAccessibility() {
+                if (this.isOpen) {
+                    this.menu.setAttribute('aria-hidden', 'false');
+                    this.button.setAttribute('aria-label', '关闭移动端菜单');
+                    // 设置焦点到第一个菜单项
+                    const firstMenuItem = this.menu.querySelector('a');
+                    if (firstMenuItem) {
+                        firstMenuItem.focus();
+                    }
+                } else {
+                    this.menu.setAttribute('aria-hidden', 'true');
+                    this.button.setAttribute('aria-label', '打开移动端菜单');
+                }
+            }
+        }
+        
+        // 平滑滚动管理类
+        class SmoothScroll {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                const anchors = utils.safeQuerySelectorAll('a[href^="#"]');
+                anchors.forEach(anchor => {
+                    anchor.addEventListener('click', (e) => this.handleClick(e, anchor));
+                });
+            }
+            
+            handleClick(e, anchor) {
                 e.preventDefault();
                 
-                const targetId = this.getAttribute('href');
+                const targetId = anchor.getAttribute('href');
                 if (targetId === '#') return;
                 
-                const targetElement = document.querySelector(targetId);
+                const targetElement = utils.safeQuerySelector(targetId);
                 if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
+                    this.scrollToElement(targetElement);
+                    this.closeMobileMenu();
+                    this.updateActiveNav(anchor);
+                }
+            }
+            
+            scrollToElement(element) {
+                const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+                const elementPosition = element.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                });
+                
+                // 更新URL哈希（不触发滚动）
+                history.pushState(null, null, `#${element.id}`);
+                
+                // 设置焦点到目标元素
+                element.setAttribute('tabindex', '-1');
+                element.focus();
+                element.removeAttribute('tabindex');
+            }
+            
+            closeMobileMenu() {
+                if (window.innerWidth < CONFIG.mobileBreakpoint && window.mobileMenu) {
+                    window.mobileMenu.close();
+                }
+            }
+            
+            updateActiveNav(activeLink) {
+                // 移除所有活动状态
+                const navLinks = utils.safeQuerySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.removeAttribute('aria-current');
+                });
+                
+                // 设置当前活动状态
+                activeLink.setAttribute('aria-current', 'page');
+            }
+        }
+        
+        // 返回顶部按钮管理类
+        class BackToTop {
+            constructor() {
+                this.button = utils.safeQuerySelector('#back-to-top');
+                if (this.button) {
+                    this.init();
+                }
+            }
+            
+            init() {
+                this.button.addEventListener('click', () => this.scrollToTop());
+                this.button.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.scrollToTop();
+                    }
+                });
+                
+                window.addEventListener('scroll', utils.throttle(() => this.handleScroll(), CONFIG.throttleLimit));
+            }
+            
+            handleScroll() {
+                if (window.pageYOffset > CONFIG.scrollThreshold) {
+                    this.show();
+                } else {
+                    this.hide();
+                }
+            }
+            
+            show() {
+                this.button.classList.remove('opacity-0', 'invisible');
+                this.button.classList.add('opacity-100', 'visible');
+                this.button.setAttribute('aria-hidden', 'false');
+            }
+            
+            hide() {
+                this.button.classList.remove('opacity-100', 'visible');
+                this.button.classList.add('opacity-0', 'invisible');
+                this.button.setAttribute('aria-hidden', 'true');
+            }
+            
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // 更新焦点到页面顶部
+                const heroTitle = utils.safeQuerySelector('#hero-title');
+                if (heroTitle) {
+                    heroTitle.focus();
+                }
+            }
+        }
+        
+        // 动画管理类
+        class AnimationManager {
+            constructor() {
+                this.animatedElements = utils.safeQuerySelectorAll('.fade-in');
+                if (this.animatedElements.length > 0) {
+                    this.init();
+                }
+            }
+            
+            init() {
+                if ('IntersectionObserver' in window) {
+                    this.setupIntersectionObserver();
+                } else {
+                    this.fallbackAnimation();
+                }
+            }
+            
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+                
+                this.animatedElements.forEach(element => {
+                    observer.observe(element);
+                });
+            }
+            
+            fallbackAnimation() {
+                this.animatedElements.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.classList.add('visible');
+                    }, index * CONFIG.animationDelay);
+                });
+            }
+        }
+        
+        // 表单管理类
+        class FormManager {
+            constructor() {
+                this.form = utils.safeQuerySelector('form');
+                if (this.form) {
+                    this.init();
+                }
+            }
+            
+            init() {
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+                this.setupFormValidation();
+                this.setupFormAccessibility();
+            }
+            
+            setupFormAccessibility() {
+                // 为表单添加适当的ARIA标签
+                this.form.setAttribute('aria-label', '申请加入文苑阁部落');
+                
+                const inputs = this.form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    if (!input.hasAttribute('aria-label') && !input.hasAttribute('aria-labelledby')) {
+                        const label = this.form.querySelector(`label[for="${input.id}"]`);
+                        if (label) {
+                            input.setAttribute('aria-labelledby', label.id || `${input.id}-label`);
+                        }
+                    }
+                });
+            }
+            
+            setupFormValidation() {
+                const inputs = this.form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => this.validateField(input));
+                    input.addEventListener('input', () => this.clearFieldError(input));
+                });
+            }
+            
+            validateField(field) {
+                const value = field.value.trim();
+                let isValid = true;
+                let errorMessage = '';
+                
+                // 移除现有错误
+                this.clearFieldError(field);
+                
+                // 验证规则
+                if (field.hasAttribute('required') && !value) {
+                    isValid = false;
+                    errorMessage = '此字段为必填项';
+                } else if (field.type === 'email' && value && !this.isValidEmail(value)) {
+                    isValid = false;
+                    errorMessage = '请输入有效的邮箱地址';
+                } else if (field.id === 'trophies' && value && (value < 0 || value > 10000)) {
+                    isValid = false;
+                    errorMessage = '奖杯数应在0-10000之间';
+                } else if (field.id === 'tag' && value && !this.isValidPlayerTag(value)) {
+                    isValid = false;
+                    errorMessage = '玩家标签格式应为 #ABC123';
+                }
+                
+                if (!isValid) {
+                    this.showFieldError(field, errorMessage);
+                }
+                
+                return isValid;
+            }
+            
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            isValidPlayerTag(tag) {
+                const tagRegex = /^#[A-Z0-9]{6,8}$/;
+                return tagRegex.test(tag);
+            }
+            
+            showFieldError(field, message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'text-red-400 text-sm mt-1';
+                errorDiv.textContent = message;
+                errorDiv.setAttribute('role', 'alert');
+                errorDiv.setAttribute('aria-live', 'polite');
+                errorDiv.id = `${field.id}-error`;
+                field.parentNode.appendChild(errorDiv);
+                field.classList.add('border-red-500');
+                field.setAttribute('aria-invalid', 'true');
+                field.setAttribute('aria-describedby', errorDiv.id);
+            }
+            
+            clearFieldError(field) {
+                const errorDiv = field.parentNode.querySelector('.text-red-400');
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+                field.classList.remove('border-red-500');
+                field.removeAttribute('aria-invalid');
+                field.removeAttribute('aria-describedby');
+            }
+            
+            handleSubmit(e) {
+                e.preventDefault();
+                
+                // 验证所有字段
+                const inputs = this.form.querySelectorAll('input, select, textarea');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!this.validateField(input)) {
+                        isValid = false;
+                    }
+                });
+                
+                if (isValid) {
+                    this.submitForm();
+                }
+            }
+            
+            submitForm() {
+                // 显示提交状态
+                const submitButton = this.form.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2" aria-hidden="true"></i>提交中...';
+                submitButton.disabled = true;
+                
+                // 模拟提交过程
+                setTimeout(() => {
+                    this.showSuccessMessage();
+                    this.form.reset();
+                    
+                    // 恢复按钮状态
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                }, 1500);
+            }
+            
+            showSuccessMessage() {
+                // 创建成功消息
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                messageDiv.innerHTML = '<i class="fas fa-check mr-2" aria-hidden="true"></i>申请已提交！我们会尽快审核您的申请。';
+                messageDiv.setAttribute('role', 'alert');
+                messageDiv.setAttribute('aria-live', 'polite');
+                
+                document.body.appendChild(messageDiv);
+                
+                // 自动移除消息
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 5000);
+            }
+        }
+        
+        // 性能优化类
+        class PerformanceOptimizer {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.lazyLoadImages();
+                this.preloadCriticalResources();
+                this.setupPerformanceMonitoring();
+            }
+            
+            lazyLoadImages() {
+                if ('IntersectionObserver' in window) {
+                    const imageObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+                                if (img.dataset.src) {
+                                    img.src = img.dataset.src;
+                                    img.classList.remove('lazy');
+                                    imageObserver.unobserve(img);
+                                }
+                            }
+                        });
                     });
                     
-                    // 如果是移动端菜单，点击后关闭菜单
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
+                    const lazyImages = utils.safeQuerySelectorAll('img[data-src]');
+                    lazyImages.forEach(img => {
+                        imageObserver.observe(img);
+                    });
                 }
-            });
-        });
+            }
+            
+            preloadCriticalResources() {
+                // 预加载关键图片
+                const criticalImages = [
+                    '/imgs/coc.png',
+                    '/imgs/野蛮人之王.png'
+                ];
+                
+                criticalImages.forEach(src => {
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = src;
+                    document.head.appendChild(link);
+                });
+            }
+            
+            setupPerformanceMonitoring() {
+                if ('performance' in window) {
+                    window.addEventListener('load', () => {
+                        setTimeout(() => {
+                            const perfData = performance.getEntriesByType('navigation')[0];
+                            if (perfData) {
+                                console.log('页面加载时间:', Math.round(perfData.loadEventEnd - perfData.loadEventStart), 'ms');
+                            }
+                        }, 0);
+                    });
+                }
+            }
+        }
         
-        // 返回顶部按钮
-        const backToTopButton = document.getElementById('back-to-top');
+        // 无障碍性增强类
+        class AccessibilityEnhancer {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.setupSkipLinks();
+                this.setupKeyboardNavigation();
+                this.setupFocusManagement();
+                this.setupScreenReaderSupport();
+            }
+            
+            setupSkipLinks() {
+                // 添加跳过导航链接
+                const skipLink = document.createElement('a');
+                skipLink.href = '#main-content';
+                skipLink.className = 'sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50';
+                skipLink.textContent = '跳到主要内容';
+                document.body.insertBefore(skipLink, document.body.firstChild);
+            }
+            
+            setupKeyboardNavigation() {
+                // 键盘导航支持
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab') {
+                        document.body.classList.add('keyboard-navigation');
+                    }
+                });
+                
+                document.addEventListener('mousedown', () => {
+                    document.body.classList.remove('keyboard-navigation');
+                });
+            }
+            
+            setupFocusManagement() {
+                // 焦点管理
+                const focusableElements = utils.safeQuerySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                
+                focusableElements.forEach(element => {
+                    element.addEventListener('focus', () => {
+                        element.classList.add('focus-visible');
+                    });
+                    
+                    element.addEventListener('blur', () => {
+                        element.classList.remove('focus-visible');
+                    });
+                });
+            }
+            
+            setupScreenReaderSupport() {
+                // 为动态内容添加屏幕阅读器支持
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        mutation.addedNodes.forEach((node) => {
+                            if (node.nodeType === Node.ELEMENT_NODE) {
+                                this.enhanceAccessibility(node);
+                            }
+                        });
+                    });
+                });
+                
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                });
+            }
+            
+            enhanceAccessibility(element) {
+                // 为图片添加alt属性
+                const images = element.querySelectorAll('img:not([alt])');
+                images.forEach(img => {
+                    if (!img.alt) {
+                        img.alt = '图片';
+                    }
+                });
+                
+                // 为按钮添加aria-label
+                const buttons = element.querySelectorAll('button:not([aria-label])');
+                buttons.forEach(button => {
+                    if (!button.textContent.trim()) {
+                        button.setAttribute('aria-label', '按钮');
+                    }
+                });
+            }
+        }
         
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('opacity-0', 'invisible');
-                backToTopButton.classList.add('opacity-100', 'visible');
-            } else {
-                backToTopButton.classList.remove('opacity-100', 'visible');
-                backToTopButton.classList.add('opacity-0', 'invisible');
+        // 成员折叠管理类
+        class MembersToggle {
+            constructor() {
+                this.toggleButton = utils.safeQuerySelector('#toggle-members-btn');
+                this.regularMembersContainer = utils.safeQuerySelector('#regular-members-container');
+                this.isExpanded = false;
+                
+                if (this.toggleButton && this.regularMembersContainer) {
+                    this.init();
+                }
+            }
+            
+            init() {
+                this.toggleButton.addEventListener('click', () => this.toggleMembers());
+                this.toggleButton.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.toggleMembers();
+                    }
+                });
+            }
+            
+            toggleMembers() {
+                this.isExpanded = !this.isExpanded;
+                this.updateUI();
+                this.updateAccessibility();
+            }
+            
+            updateUI() {
+                if (this.isExpanded) {
+                    // 展开普通成员
+                    this.regularMembersContainer.classList.remove('hidden');
+                    this.toggleButton.innerHTML = '收起成员 <i class="fas fa-chevron-up ml-2"></i>';
+                    this.toggleButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                    this.toggleButton.classList.add('bg-gray-600', 'hover:bg-gray-700');
+                } else {
+                    // 折叠普通成员
+                    this.regularMembersContainer.classList.add('hidden');
+                    this.toggleButton.innerHTML = '查看更多成员 <i class="fas fa-chevron-down ml-2"></i>';
+                    this.toggleButton.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                    this.toggleButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                }
+            }
+            
+            updateAccessibility() {
+                if (this.isExpanded) {
+                    this.toggleButton.setAttribute('aria-expanded', 'true');
+                    this.toggleButton.setAttribute('aria-label', '收起普通成员列表');
+                    this.regularMembersContainer.setAttribute('aria-hidden', 'false');
+                } else {
+                    this.toggleButton.setAttribute('aria-expanded', 'false');
+                    this.toggleButton.setAttribute('aria-label', '展开普通成员列表');
+                    this.regularMembersContainer.setAttribute('aria-hidden', 'true');
+                }
+            }
+        }
+        
+        // 错误处理类
+        class ErrorHandler {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                window.addEventListener('error', (e) => this.handleError(e));
+                window.addEventListener('unhandledrejection', (e) => this.handlePromiseRejection(e));
+            }
+            
+            handleError(error) {
+                console.error('页面错误:', error.error);
+                // 这里可以添加错误上报逻辑
+            }
+            
+            handlePromiseRejection(event) {
+                console.error('未处理的Promise拒绝:', event.reason);
+                // 这里可以添加错误上报逻辑
+            }
+        }
+        
+        // 初始化所有功能
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // 创建实例
+                window.mobileMenu = new MobileMenu();
+                const smoothScroll = new SmoothScroll();
+                const backToTop = new BackToTop();
+                const animationManager = new AnimationManager();
+                const formManager = new FormManager();
+                const performanceOptimizer = new PerformanceOptimizer();
+                const accessibilityEnhancer = new AccessibilityEnhancer();
+                const membersToggle = new MembersToggle();
+                const errorHandler = new ErrorHandler();
+                
+                // 添加页面加载完成标记
+                document.body.classList.add('loaded');
+                
+                // 控制台欢迎信息
+                console.log('%c🎮 欢迎来到文苑阁部落！', 'color: #3b82f6; font-size: 20px; font-weight: bold;');
+                console.log('%c部落标签: #2QYYOV89C', 'color: #10b981; font-size: 16px;');
+                console.log('%c网站已完全重构，性能和无障碍性大幅提升！', 'color: #f59e0b; font-size: 14px;');
+                
+            } catch (error) {
+                console.error('初始化过程中发生错误:', error);
             }
         });
         
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        // 页面可见性API支持
+        if ('hidden' in document) {
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    document.title = '👋 文苑阁部落 - 记得回来看看！';
+                } else {
+                    document.title = '部落冲突 - 文苑阁';
+                }
             });
-        });
+        }
         
-        // 表单提交
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('申请已提交！我们会尽快审核您的申请。');
-                form.reset();
+        // 服务工作者注册（如果支持）
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // 这里可以注册服务工作者用于离线支持
+                // navigator.serviceWorker.register('/sw.js');
             });
         }
     </script>
