@@ -21,16 +21,24 @@ const CLAN_CONFIG = {
     // 部落基本信息
     clan: {
         name: "文苑阁",
+        // 部落标签
         tag: "#2QYYOV89C",
-        level: 5,
+        // 部落等级
+        level: 8,
+        // 成员数量
         members: {
-            current: 31,
+            current: 17,
             max: 50
         },
-        leaguePoints: 22628,
+        // 部落联赛积分
+        leaguePoints: 22085,
+        // 部落战奖杯要求
         requiredTrophies: 1600,
+        // 部落战大本营要求
         requiredTownHall: 12,
-        honor: 7655750,
+        // 部落荣誉
+        honor: 5777856,
+        // 部落描述
         description: "文苑阁是一个活跃的部落，我们致力于打造一个友好、互助的游戏环境，欢迎各路玩家加入我们的大家庭！"
     },
 
@@ -78,12 +86,19 @@ const CLAN_CONFIG = {
         leaders: [
             {
                 name: "绝战到底",
+                // 职位
                 role: "首领",
-                currentTrophies: 4753,
+                // 当前奖杯
+                currentTrophies: 4943,
+                // 历史最佳奖杯
                 bestTrophies: 5359,
+                // 大本营等级
                 townHall: 16,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "W",
+                // 颜色
                 color: "blue"
             }
         ],
@@ -91,22 +106,36 @@ const CLAN_CONFIG = {
         coLeaders: [
             {
                 name: "魔神",
+                // 职位
                 role: "副首领",
-                currentTrophies: 2296,
-                bestTrophies: 3020,
-                townHall: 15,
+                // 当前奖杯
+                currentTrophies: 4836,
+                // 历史最佳奖杯
+                bestTrophies: 5005,
+                // 大本营等级
+                townHall: 16,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "S",
+                // 颜色
                 color: "purple"
             },
             {
                 name: "天朝",
+                // 职位
                 role: "副首领",
-                currentTrophies: 2887,
-                bestTrophies: 3695,
-                townHall: 14,
+                // 当前奖杯
+                currentTrophies: 3033,
+                // 历史最佳奖杯
+                bestTrophies: 4296,
+                // 大本营等级
+                townHall: 15,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "S",
+                // 颜色
                 color: "purple"
             }
         ],
@@ -114,135 +143,172 @@ const CLAN_CONFIG = {
         elders: [
             {
                 name: "采野果",
+                // 职位
                 role: "长老",
+                // 当前奖杯
                 currentTrophies: 4243,
+                // 历史最佳奖杯
                 bestTrophies: 5094,
+                // 大本营等级
                 townHall: 17,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "Y",
+                // 颜色
                 color: "green"
             },
             {
                 name: "小卤蛋",
+                // 职位
                 role: "长老",
-                currentTrophies: 4478,
-                bestTrophies: 4667,
-                townHall: 15,
+                // 当前奖杯
+                currentTrophies: 3926,
+                // 历史最佳奖杯
+                bestTrophies: 5371,
+                // 大本营等级
+                townHall: 16,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "Y",
+                // 颜色
                 color: "green"
             },
             {
                 name: "心在痛める",
+                // 职位
                 role: "长老",
-                currentTrophies: 3194,
-                bestTrophies: 3391,
-                townHall: 13,
+                // 当前奖杯
+                currentTrophies: 3654,
+                // 历史最佳奖杯
+                bestTrophies: 3708,
+                // 大本营等级
+                townHall: 14,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "Y",
+                // 颜色
                 color: "green"
             },
             {
                 name: "辉辉",
+                // 职位
                 role: "长老",
-                currentTrophies: 2682,
+                // 当前奖杯
+                currentTrophies: 2781,
+                // 历史最佳奖杯
                 bestTrophies: 3473,
-                townHall: 13,
+                // 大本营等级
+                townHall: 14,
                 joinDate: "部落元老",
                 avatar: "Y",
                 color: "green"
             },
             {
                 name: "天煞魔君",
+                // 职位
                 role: "长老",
-                currentTrophies: 2759,
-                bestTrophies: 2878,
-                townHall: 13,
+                // 当前奖杯
+                currentTrophies: 3276,
+                // 历史最佳奖杯
+                bestTrophies: 3305,
+                // 大本营等级
+                townHall: 14,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "Y",
+                // 颜色
                 color: "green"
             },
             {
                 name: "时道",
+                // 职位
                 role: "长老",
-                currentTrophies: 1961,
-                bestTrophies: 1986,
-                townHall: 12,
+                // 当前奖杯
+                currentTrophies: 3151,
+                // 历史最佳奖杯
+                bestTrophies: 3151,
+                // 大本营等级
+                townHall: 14,
+                // 加入时间
                 joinDate: "部落元老",
+                // 头像
                 avatar: "Y",
+                // 颜色
                 color: "green"
             }
         ],
         // 普通成员列表 - 默认折叠隐藏，通过按钮控制显示
-        members: [
-            {
-                name: "老字号豆浆粉",
-                role: "成员",
-                currentTrophies: 2911,
-                bestTrophies: 3123,
-                townHall: 14,
-                joinDate: "2025年1月",
-                avatar: "Q",
-                color: "gray"
-            },
+        members: [          
             {
                 name: "孤。傲",
+                // 职位
                 role: "成员",
-                currentTrophies: 3160,
-                bestTrophies: 3214,
-                townHall: 14,
+                // 当前奖杯
+                currentTrophies: 2867,
+                // 历史最佳奖杯
+                bestTrophies: 3222,
+                // 大本营等级
+                townHall: 15,
+                // 加入时间
                 joinDate: "2025年1月",
-                avatar: "H",
+                // 头像
+                avatar: "H",  
+                // 颜色
                 color: "gray"
-            },
+            },          
             {
-                name: "qwer",
+                name: "龙踏天下",
+                // 职位
                 role: "成员",
-                currentTrophies: 2560,
-                bestTrophies: 2865,
-                townHall: 14,
-                joinDate: "2025年1月",
-                avatar: "X",
-                color: "gray"
-            },
-            {
-                name: "以后想遇到的还是你",
-                role: "成员",
-                currentTrophies: 1902,
-                bestTrophies: 5000,
-                townHall: 16,
-                joinDate: "2025年1月",
-                avatar: "L",
-                color: "gray"
-            },
-            {
-                name: "梅林峰水村",
-                role: "成员",
-                currentTrophies: 3231,
-                bestTrophies: 3383,
-                townHall: 16,
-                joinDate: "2025年1月",
+                // 当前奖杯
+                currentTrophies: 3656,
+                // 历史最佳奖杯
+                bestTrophies: 3661,
+                // 大本营等级
+                townHall: 15,
+                // 加入时间
+                joinDate: "部落元老",
+                // 头像
                 avatar: "F",
+                // 颜色
                 color: "gray"
             },
             {
-                name: "胖胖鱼",
+                name: "XX的村庄",
+                // 职位
                 role: "成员",
-                currentTrophies: 2488,
-                bestTrophies: 2498,
+                // 当前奖杯
+                currentTrophies: 2245,
+                // 历史最佳奖杯
+                bestTrophies: 2612,
+                // 大本营等级
                 townHall: 13,
-                joinDate: "2025年1月",
+                // 加入时间
+                joinDate: "部落元老",
+                // 头像
                 avatar: "F",
+                // 颜色
                 color: "gray"
             },
             {
                 name: "永恒",
+                // 职位
                 role: "成员",
+                // 当前奖杯
                 currentTrophies: 2377,
+                // 历史最佳奖杯
                 bestTrophies: 2849,
+                // 大本营等级
                 townHall: 13,
+                // 加入时间
                 joinDate: "2025年1月",
+                // 头像
                 avatar: "X",
+                // 颜色
                 color: "gray"
             }
         ]
@@ -399,14 +465,14 @@ const CLAN_CONFIG = {
             icon: "fas fa-calendar-alt",
             color: "red",
             title: "定期活动",
-            description: "每月举办内部比赛，优胜者将获得宝石奖励，还有机会晋升为部落管理。"
+            description: "每月参加部落对战联赛，优胜者将获得额外奖章奖励，还有机会晋升为部落管理。"
         }
     ],
 
     // 联系方式
     contact: {
         clanTag: "#2QYYOV89C",
-        discord: "文苑阁",
+        discord: "暂无",
         qqGroup: "暂无",
         email: "shuaidaoya@gmail.com",
         socialMedia: {
