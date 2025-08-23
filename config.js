@@ -36,7 +36,7 @@ const CLAN_CONFIG = {
         requiredTrophies: 1600,
         // 部落战大本营要求
         requiredTownHall: 12,
-        // 部落荣誉
+        // 繁荣度
         honor: 5777856,
         // 部落描述
         description: "文苑阁是一个活跃的部落，我们致力于打造一个友好、互助的游戏环境，欢迎各路玩家加入我们的大家庭！"
