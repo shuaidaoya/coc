@@ -1,158 +1,122 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark" data-framework="tailwind">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="部落冲突文苑阁部落官方网站 - 加入我们，体验最激烈的部落战争！">
-    <meta name="keywords" content="部落冲突,文苑阁,部落,Clash of Clans,游戏">
-    <meta name="author" content="文苑阁部落">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-domain.com/">
-    <meta property="og:title" content="部落冲突 - 文苑阁">
-    <meta property="og:description" content="加入我们，体验最激烈的部落战争！">
-    <meta property="og:image" content="/imgs/coc.png">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://your-domain.com/">
-    <meta property="twitter:title" content="部落冲突 - 文苑阁">
-    <meta property="twitter:description" content="加入我们，体验最激烈的部落战争！">
-    <meta property="twitter:image" content="/imgs/coc.png">
-    
-    <title>部落冲突 - 文苑阁</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/imgs/coc.png">
-    <link rel="apple-touch-icon" href="/imgs/coc.png">
-    
-    <!-- External CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- 性能优化：关键资源预加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     
-    <!-- 部落配置文件 -->
-    <script src="config.js"></script>
+    <!-- 基础元数据 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="部落冲突文苑阁部落官方网站 - 加入我们，体验最激烈的部落战争！文苑阁是一个活跃、友好的顶级部落，部落标签#2QYYOV89C">
+    <meta name="keywords" content="部落冲突,文苑阁,部落,Clash of Clans,游戏,部落战,联赛,都城">
+    <meta name="author" content="文苑阁部落">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0f172a">
     
-    <!-- Custom CSS -->
+    <!-- Open Graph 优化 -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wenyuange-clan.github.io/">
+    <meta property="og:title" content="部落冲突 - 文苑阁 | 顶级活跃部落">
+    <meta property="og:description" content="加入文苑阁部落，体验最激烈的部落战争！活跃部落，友好氛围，部落标签#2QYYOV89C">
+    <meta property="og:image" content="/imgs/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="文苑阁部落">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://wenyuange-clan.github.io/">
+    <meta name="twitter:title" content="部落冲突 - 文苑阁">
+    <meta name="twitter:description" content="顶级活跃部落，期待你的加入！#2QYYOV89C">
+    <meta name="twitter:image" content="/imgs/twitter-card.jpg">
+    <meta name="twitter:creator" content="@wenyuange_clan">
+    
+    <!-- Favicon 优化 -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/imgs/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/imgs/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/imgs/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/imgs/safari-pinned-tab.svg" color="#3b82f6">
+    
+    <title>部落冲突 - 文苑阁 | 顶级活跃部落 #2QYYOV89C</title>
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "文苑阁部落",
+        "url": "https://wenyuange-clan.github.io/",
+        "logo": "https://wenyuange-clan.github.io/imgs/coc.png",
+        "description": "部落冲突顶级活跃部落，致力于提供最佳游戏体验",
+        "sameAs": [
+            "https://coc.qq.com/"
+        ],
+        "member": {
+            "@type": "OrganizationRole",
+            "member": {
+                "@type": "Person",
+                "name": "文苑阁成员"
+            }
+        }
+    }
+    </script>
+    
+    <!-- 关键CSS内联 -->
     <style>
         :root {
-            --primary-color: #3b82f6;
-            --secondary-color: #1d4ed8;
-            --accent-color: #fbbf24;
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #fbbf24;
             --bg-primary: #0f172a;
             --bg-secondary: #1e293b;
-            --bg-card: rgba(15, 23, 42, 0.7);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.3);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --header-height: 4rem;
         }
-        
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background-color: var(--bg-primary);
+
+        /* 重置和基础样式 */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { 
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            background-image: url('https://images.contentstack.io/v3/assets/blt370612131b6e0756/blt6d0d5a4b1e6a6d5b/5f7f0b2a4a7e2c0f03e4c2a4/Homepage_Background.jpg');
-            background-size: cover;
-            background-attachment: fixed;
             line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
         }
-        
-        .hero-gradient {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
-        }
-        
-        .clash-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-        
-        .clash-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--shadow-color);
-            border-color: rgba(226, 232, 240, 0.3);
-        }
-        
-        .member-card {
-            background: rgba(30, 41, 59, 0.6);
-            transition: all 0.3s ease;
-        }
-        
-        .member-card:hover {
-            transform: scale(1.03);
-            background: rgba(30, 41, 59, 0.8);
-        }
-        
-        .trophy-gold { color: var(--accent-color); }
-        .trophy-silver { color: #e5e7eb; }
-        .trophy-bronze { color: #b45309; }
-        
-        .clan-badge {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
+
+        /* 加载动画 */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            z-index: 9999;
+            transition: opacity 0.3s ease;
         }
-        
-        .nav-link {
-            position: relative;
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .game-feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        /* 加载动画 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* 无障碍性改进 */
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* 无障碍支持 */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -164,11 +128,50 @@
             white-space: nowrap;
             border: 0;
         }
-        
-        /* 焦点样式 */
-        .focus-visible:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        .skip-link:focus { top: 6px; }
+
+        /* 关键布局 */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>') repeat;
+            z-index: -1;
+        }
+
+        /* 减少布局偏移 */
+        img { max-width: 100%; height: auto; display: block; }
+        .content-visibility { content-visibility: auto; contain-intrinsic-size: 0 500px; }
+
+        /* 动画预设 */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .floating { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+
+        /* 响应式预设 */
+        @media (max-width: 768px) {
+            :root { --header-height: 3.5rem; }
+            .hero-section { padding-top: var(--header-height); }
         }
     </style>
 </head>
@@ -632,7 +635,7 @@
                 <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">加入文苑阁</h2>
                 <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
                 <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    我们正在寻找活跃的玩家加入我们的大家庭！填写以下表格申请加入，或直接搜索部落标签#ABC123。
+                    我们正在寻找活跃的玩家加入我们的大家庭！填写以下表格申请加入，或直接搜索部落标签#2QYYOV89C
                 </p>
             </div>
             
@@ -661,6 +664,8 @@
                                 <label for="townhall" class="block text-sm font-medium text-gray-300 mb-2">大本营等级</label>
                                 <select id="townhall" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="">选择大本营等级</option>
+                                    <option value="17">17级</option>
+                                    <option value="16">16级</option>
                                     <option value="15">15级</option>
                                     <option value="14">14级</option>
                                     <option value="13">13级</option>
@@ -751,7 +756,7 @@
                                 <div class="ml-4">
                                     <h4 class="text-lg font-bold text-white">定期活动</h4>
                                     <p class="mt-1 text-gray-300">
-                                        每月举办内部比赛，优胜者将获得宝石奖励，还有机会晋升为部落管理。
+                                        每月参加部落对战联赛，优胜者将获得额外奖章奖励，还有机会晋升为部落管理。
                                     </p>
                                 </div>
                             </div>
@@ -1651,6 +1656,13 @@
                         textClass: 'text-green-400',
                         icon: 'fas fa-award',
                         label: '长老'
+                    },
+                    member: {
+                        bgClass: 'bg-gray-900/50',
+                        colorClass: 'bg-gray-600',
+                        textClass: 'text-gray-400', 
+                        icon: 'fas fa-user',
+                        label: '成员'
                     }
                 };
                 
@@ -1711,8 +1723,9 @@
                     this.regularMembersContainer.classList.add('hidden');
                     this.toggleButton.innerHTML = '查看更多成员 <i class="fas fa-chevron-down ml-2"></i>';
                     this.toggleButton.classList.remove('bg-gray-600', 'hover:bg-gray-700');
-                    this.toggleButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    this极速赛车微信群.toggleButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
                 }
+                
             }
             
             updateAccessibility() {
@@ -1725,6 +1738,115 @@
                     this.toggleButton.setAttribute('aria-label', '展开普通成员列表');
                     this.regularMembersContainer.setAttribute('aria-hidden', 'true');
                 }
+            }
+        }
+        
+        // 新增：成员分类过滤类
+        class MembersFilter {
+            constructor() {
+                this.filterButtons = utils.safeQuerySelectorAll('.inline-flex button[type="button"]');
+                this.membersRenderer = null;
+                this.currentFilter = 'all';
+                
+                if (this.filterButtons.length > 0) {
+                    this.init();
+                }
+            }
+            
+            setMembersRenderer(renderer) {
+                this.membersRenderer = renderer;
+            }
+            
+            init() {
+                this.filterButtons.forEach((button, index) => {
+                    button.addEventListener('click', () => this.handleFilterClick(index));
+                    button.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.handleFilterClick(index);
+                        }
+                    });
+                });
+            }
+            
+            handleFilterClick(index) {
+                const filters = ['all', 'leaders', 'elders', 'members'];
+                const filter = filters[index];
+                
+                if (filter === this.currentFilter) return;
+                
+                this.currentFilter = filter;
+                this.updateButtonStates(index);
+                this.filterMembers(filter);
+            }
+            
+            updateButtonStates(activeIndex) {
+                this.filterButtons.forEach((button, index) => {
+                    if (index === activeIndex) {
+                        button.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                        button.classList.add('bg-blue-600', 'text-white');
+                    } else {
+                        button.classList.remove('bg-blue-600', 'text-white');
+                        button.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                    }
+                });
+            }
+            
+            filterMembers(filter) {
+                if (!this.membersRenderer) {
+                    console.warn('成员渲染器未设置');
+                    return;
+                }
+                
+                const { leaders, coLeaders, elders, members } = window.CLAN_CONFIG.members;
+                
+                switch (filter) {
+                    case 'all':
+                        this.membersRenderer.renderMembers();
+                        break;
+                    case 'leaders':
+                        this.renderFilteredMembers([...leaders, ...coLeaders], '首领 & 副首领');
+                        break;
+                    case 'elders':
+                        this.renderFilteredMembers(elders, '长老');
+                        break;
+                    case 'members':
+                        this.renderFilteredMembers(members, '普通成员');
+                        break;
+                }
+            }
+            
+            renderFilteredMembers(memberList, title) {
+                const membersGrid = document.getElementById('members-grid');
+                if (!membersGrid) return;
+
+                membersGrid.innerHTML = '';
+
+                if (memberList.length === 0) {
+                    membersGrid.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <i class="fas fa-users text-gray-500 text-4xl mb-4"></i>
+                            <p class="text-gray-400 text-lg">暂无${title}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                memberList.forEach(member => {
+                    let role = 'member';
+                    const { leaders, coLeaders, elders } = window.CLAN_CONFIG.members;
+
+                    // 仅使用成员名称来识别角色（因为没有tag属性）
+                    const isLeader = leaders.some(leader => leader.name === member.name);
+                    const isCoLeader = coLeaders.some(coLeader => coLeader.name === member.name);
+                    const isElder = elders.some(elder => elder.name === member.name);
+
+                    if (isLeader) role = 'leader';
+                    else if (isCoLeader) role = 'coLeader';
+                    else if (isElder) role = 'elder';
+
+                    this.membersRenderer.renderMemberCard(member, role);
+                });
             }
         }
         
@@ -1765,11 +1887,15 @@
                 // 成员相关功能
                 const membersRenderer = new MembersRenderer();
                 const membersToggle = new MembersToggle();
+                const membersFilter = new MembersFilter(); // 新增
                 
                 // 确保MembersToggle能够访问普通成员容器
                 if (membersRenderer.regularMembersContainer) {
                     membersToggle.setRegularMembersContainer(membersRenderer.regularMembersContainer);
                 }
+                
+                // 设置成员过滤器
+                membersFilter.setMembersRenderer(membersRenderer); // 新增
                 
                 // 部落信息更新
                 const clanInfoUpdater = new ClanInfoUpdater();
