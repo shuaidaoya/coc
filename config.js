@@ -97,82 +97,16 @@ const GAME_CONTENT = {
     { icon: "fas fa-flag", color: "red", title: "单人模式", description: "挑战哥布林关卡，获得额外资源和宝石奖励，测试你的进攻策略。" },
     { icon: "fas fa-users", color: "blue", title: "部落战", description: "与其他部落对抗，通过两次进攻获得胜利，赢得丰厚的战争奖励。" },
     { icon: "fas fa-trophy", color: "yellow", title: "部落联赛", description: "每月一次的联赛活动，与实力相当的部落竞争，提升联赛等级。" },
-    { icon: "fas fa-medal", color: "green", title: "部落竞赛", description: "完成各种任务获得积分，全部落ogether解锁丰厚奖励。" },
-    { icon: "fas fa-handshake", color: "purple", title: "友谊战", description: "与部落成员进行练习对战，不消耗兵力，测试新的进攻策略。" }
+    { icon: "fas fa-medal", color: "green", title: "部落竞赛", description: "完成各种任务获得积分，全部落ogether解锁丰厚奖励。" }
   ]
 };
 
-// 主配置对象
-const CLAN_CONFIG = {
-  clan: CLAN_BASE,
-  rules: ["积极参与部落战和部落竞赛", "保持活跃，拒绝躺平", "尊重其他成员，禁止恶意行为", "首领和副首领的决定为最终决定", "有任何问题可以联系首领和副首领", "禁止使用任何形式的广告、刷屏等行为"],
-  announcements: ["文能提笔安天下，武能开图定乾坤", "部落招募活跃玩家，内置双奶，拒绝躺平", "部落战连开、都城共建，联赛全力冲榜"],
-  specialNotes: ["每日奶号全天在线", "兵种法术全支持", "攻城机器全支持", "部落战优先打对位，打完打上一位或下一位", "奶号由魔神提供，有任何问题可以联系魔神"],
+// 暴露配置到全局window对象
+window.CLAN_CONFIG = {
+  constants: CONSTANTS,
+  base: CLAN_BASE,
   members: MEMBERS_DATA,
-  gameInfo: GAME_CONTENT,
-  requirements: ["大本营12级及以上", "奖杯数1600以上", "每周至少参与一次部落战", "每周捐兵不少于200", "积极参与部落竞赛"],
-  advantages: [
-    { icon: "fas fa-trophy", color: "blue", title: "高胜率部落战", description: "我们拥有专业的战术指导团队，部落战胜率保持在85%以上，帮助你快速提升进攻技巧。" },
-    { icon: "fas fa-gift", color: "green", title: "快速捐兵", description: "24小时活跃捐兵，高级兵种秒捐，满足你的各种战术需求，助你轻松三星。" },
-    { icon: "fas fa-medal", color: "yellow", title: "部落竞赛满分", description: "每期部落竞赛必满，全员参与，确保每位成员都能获得最高奖励。" },
-    { icon: "fas fa-users", color: "purple", title: "友好社区", description: "我们注重团队氛围，定期组织友谊战教学和战术讨论，新手也能快速成长。" },
-    { icon: "fas fa-calendar-alt", color: "red", title: "定期活动", description: "每月参加部落对战联赛，优胜者将获得额外奖章奖励，还有机会晋升为部落管理。" }
-  ],
-  contact: {
-    clanTag: "#2QYYOV89C",
-    discord: "暂无",
-    qqGroup: "暂无",
-    email: "shuaidaoya@gmail.com",
-    socialMedia: { facebook: "#", twitter: "#", youtube: "#", instagram: "#" }
-  },
-  website: {
-    title: "部落冲突 - 文苑阁",
-    description: "部落冲突文苑阁部落官方网站 - 加入我们，体验最激烈的部落战争！",
-    keywords: "部落冲突,文苑阁,部落,Clash of Clans,游戏",
-    author: "文苑阁部落",
-    version: "2.1.0",
-    lastUpdated: new Date().toISOString().split('T')[0]
-  }
+  game: GAME_CONTENT,
+  debug: false
 };
-
-// 环境配置
-const ENV_CONFIG = {
-  development: { debug: true, apiBase: 'http://localhost:3000' },
-  production: { debug: false, apiBase: 'https://api.your-domain.com' }
-};
-
-// 配置验证器
-const ConfigValidator = {
-  validate(config) {
-    const required = ['clan', 'members', 'gameInfo'];
-    required.forEach(key => {
-      if (!config[key]) throw new Error(`配置缺失: ${key}`);
-    });
-    return true;
-  },
-  
-  getEnvConfig() {
-    const env = (typeof process !== 'undefined' && process.env?.NODE_ENV) || 'development';
-    return ENV_CONFIG[env] || ENV_CONFIG.development;
-  }
-};
-
-// 统一导出
-const ClanConfig = { ...CLAN_CONFIG, env: ConfigValidator.getEnvConfig() };
-
-// 环境适配导出
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = ClanConfig;
-}
-
-if (typeof window !== 'undefined') {
-  window.CLAN_CONFIG = ClanConfig;
-  window.ConfigValidator = ConfigValidator;
-}
-
-// TypeScript 支持
-if (typeof exports !== 'undefined') {
-  exports.default = ClanConfig;
-  exports.ConfigValidator = ConfigValidator;
-}
 

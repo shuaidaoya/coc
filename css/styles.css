@@ -1,3 +1,4 @@
+/* 基础样式 - 保留非Tailwind定义的样式 */
 :root {
     --primary-color: #3b82f6;
     --secondary-color: #1d4ed8;
@@ -19,6 +20,54 @@ body {
     background-size: cover;
     background-attachment: fixed;
     line-height: 1.6;
+}
+
+/* 加载动画 */
+.loading-spinner {
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top: 3px solid var(--primary-color);
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 无障碍支持 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* 保留特殊动画效果 */
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
 }
 
 .hero-gradient {
@@ -96,35 +145,4 @@ body {
 
 .floating {
     animation: float 3s ease-in-out infinite;
-}
-
-/* 加载动画 */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 无障碍性改进 */
-.sr-only {    
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* 焦点样式 */
-.focus-visible:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
 }

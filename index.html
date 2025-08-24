@@ -7,6 +7,59 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 配置Tailwind自定义颜色 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#1d4ed8',
+                        accent: '#fbbf24',
+                        'bg-primary': '#0f172a',
+                        'bg-secondary': '#1e293b',
+                        'text-primary': '#e2e8f0',
+                        'text-secondary': '#94a3b8'
+                    },
+                },
+            }
+        }
+    </script>
+    
+    <!-- 添加自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .hero-gradient {
+                background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            }
+            .clash-card {
+                @apply bg-[rgba(15,23,42,0.7)] backdrop-blur-md border border-white/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-white/30;
+            }
+            .member-card {
+                @apply bg-[rgba(30,41,59,0.6)] transition-all duration-300 hover:scale-103 hover:bg-[rgba(30,41,59,0.8)];
+            }
+            .trophy-gold { color: theme('colors.accent'); }
+            .trophy-silver { color: #e5e7eb; }
+            .trophy-bronze { color: #b45309; }
+            .nav-link::after {
+                content: '';
+                @apply absolute bottom-[-5px] left-0 w-0 h-[2px] bg-primary transition-all duration-300;
+            }
+            .nav-link:hover::after {
+                @apply w-full;
+            }
+        }
+    </style>
+    
+    <!-- 保留现有的自定义CSS文件引用 -->
+    <link rel="stylesheet" href="css/styles.css">
+    
     <!-- 基础元数据 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -64,118 +117,9 @@
         }
     }
     </script>
-    
-    <!-- 关键CSS内联 -->
-    <style>
-        :root {
-            --primary: #3b82f6;
-            --primary-dark: #1d4ed8;
-            --accent: #fbbf24;
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --border: rgba(255, 255, 255, 0.1);
-            --shadow: rgba(0, 0, 0, 0.3);
-            --header-height: 4rem;
-        }
-
-        /* 重置和基础样式 */
-        *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; font-size: 16px; }
-        body { 
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        /* 加载动画 */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.3s ease;
-        }
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* 无障碍支持 */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 6px;
-            background: var(--primary);
-            color: white;
-            padding: 8px;
-            text-decoration: none;
-            border-radius: 4px;
-            z-index: 1000;
-        }
-        .skip-link:focus { top: 6px; }
-
-        /* 关键布局 */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>') repeat;
-            z-index: -1;
-        }
-
-        /* 减少布局偏移 */
-        img { max-width: 100%; height: auto; display: block; }
-        .content-visibility { content-visibility: auto; contain-intrinsic-size: 0 500px; }
-
-        /* 动画预设 */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .floating { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-
-        /* 响应式预设 */
-        @media (max-width: 768px) {
-            :root { --header-height: 3.5rem; }
-            .hero-section { padding-top: var(--header-height); }
-        }
-    </style>
 </head>
 <body>
+
     <!-- 导航栏 -->
     <header>
         <nav class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-700" role="navigation" aria-label="主导航">
@@ -221,7 +165,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 移动端菜单 -->
             <div class="hidden md:hidden" id="mobile-menu" role="menu" aria-labelledby="mobile-menu-button">
                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -238,6 +182,7 @@
                 </div>
             </div>
         </nav>
+
     </header>
 
     <!-- 英雄区域 -->
@@ -1723,7 +1668,7 @@
                     this.regularMembersContainer.classList.add('hidden');
                     this.toggleButton.innerHTML = '查看更多成员 <i class="fas fa-chevron-down ml-2"></i>';
                     this.toggleButton.classList.remove('bg-gray-600', 'hover:bg-gray-700');
-                    this极速赛车微信群.toggleButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    this.toggleButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
                 }
                 
             }

@@ -16,7 +16,7 @@ export class ClanInfoUpdater {
         }
     }
     
-    updateClan极速赛车微信群Info() {
+    updateClanInfo() {
         const clan = window.CLAN_CONFIG.clan;
         
         // 更新部落等级
@@ -139,7 +139,7 @@ export class ClanInfoUpdater {
     updateFooterCopyright(website) {
         const currentYear = new Date().getFullYear();
         
-        // 更新版权信息极速赛车微信群        const footerCopyright = document.getElementById('footer-copyright');
+        // 更新版权信息        const footerCopyright = document.getElementById('footer-copyright');
         if (footerCopyright) {
             footerCopyright.textContent = `&copy; ${currentYear} ${website.author}. 保留所有权利.`;
         }

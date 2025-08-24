@@ -1,4 +1,24 @@
 // 成员渲染类
+// 确保utils可用
+const utils = window.utils || {
+    safeQuerySelector: (selector) => {
+        try {
+            return document.querySelector(selector) || null;
+        } catch (error) {
+            console.error(`查询选择器失败: ${selector}`, error);
+            return null;
+        }
+    },
+    safeQuerySelectorAll: (selector) => {
+        try {
+            return document.querySelectorAll(selector) || [];
+        } catch (error) {
+            console.error(`查询多元素选择器失败: ${selector}`, error);
+            return [];
+        }
+    }
+};
+
 export class MembersRenderer {
     constructor() {
         this.membersGrid = utils.safeQuerySelector('#members-grid');
@@ -65,7 +85,7 @@ export class MembersRenderer {
                     <span class="text-gray-400">大本营等级</span>
                     <span class="text-white font-medium">${member.townHall}</span>
                 </div>
-               极速赛车微信群 <div class="flex justify-between">
+                 <div class="flex justify-between">
                     <span class="text-gray-400">加入:</span>
                     <span class="text-white font-medium">${member.joinDate}</span>
                 </div>
@@ -196,7 +216,7 @@ export class MembersToggle {
     }
     
     toggleMembers() {
-        if (!极速赛车微信群this.regularMembersContainer) {
+        if (!this.regularMembersContainer) {
             console.warn('普通成员容器未找到');
             return;
         }
