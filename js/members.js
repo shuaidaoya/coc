@@ -1,22 +1,23 @@
 // 成员渲染类
-// 确保utils可用
-const utils = window.utils || {
-    safeQuerySelector: (selector) => {
-        try {
-            return document.querySelector(selector) || null;
-        } catch (error) {
-            console.error(`查询选择器失败: ${selector}`, error);
-            return null;
+// 移除错误的utils定义，改为正确导入
+import { utils } from './utils.js';
+
+// 添加一个等待配置加载的函数
+const waitForClanConfig = () => {
+    return new Promise((resolve) => {
+        if (window.CLAN_CONFIG) {
+            resolve(window.CLAN_CONFIG);
+        } else {
+            const checkConfig = () => {
+                if (window.CLAN_CONFIG) {
+                    resolve(window.CLAN_CONFIG);
+                } else {
+                    setTimeout(checkConfig, 100);
+                }
+            };
+            checkConfig();
         }
-    },
-    safeQuerySelectorAll: (selector) => {
-        try {
-            return document.querySelectorAll(selector) || [];
-        } catch (error) {
-            console.error(`查询多元素选择器失败: ${selector}`, error);
-            return [];
-        }
-    }
+    });
 };
 
 export class MembersRenderer {
@@ -26,16 +27,29 @@ export class MembersRenderer {
         this.init();
     }
     
-    init() {
-        if (this.membersGrid && window.CLAN_CONFIG && window.CLAN_CONFIG.members) {
-            this.renderMembers();
-        } else {
-            console.warn('成员配置未找到，无法渲染成员卡片');
+    async init() {
+        if (this.membersGrid) {
+            try {
+                // 等待配置加载完成
+                await waitForClanConfig();
+                
+                if (window.CLAN_CONFIG && window.CLAN_CONFIG.members) {
+                    this.renderMembers();
+                } else {
+                    console.warn('成员配置未找到，无法渲染成员卡片');
+                    // 即使没有配置，也尝试使用模拟数据渲染
+                    this.renderMembersWithMockData();
+                }
+            } catch (error) {
+                console.error('初始化成员渲染器失败:', error);
+                this.renderMembersWithMockData();
+            }
         }
     }
     
     renderMembers() {
-        const { leaders, coLeaders, elders, members } = window.CLAN_CONFIG.members;
+        // 修改为直接访问顶层属性
+        const { leaders, coLeaders, elders, members } = window.CLAN_CONFIG;
         
         // 清空现有内容
         this.membersGrid.innerHTML = '';
@@ -51,6 +65,25 @@ export class MembersRenderer {
         
         // 创建普通成员容器
         this.createRegularMembersContainer(members);
+    }
+    
+    renderMembersWithMockData() {
+        // 创建一些模拟数据以便在没有配置时也能显示效果
+        const mockData = {
+            leaders: [{ name: '测试首领', currentTrophies: 5000, bestTrophies: 5500, townHall: 16, joinDate: '2024' }],
+            coLeaders: [{ name: '测试副首领', currentTrophies: 4800, bestTrophies: 5200, townHall: 15, joinDate: '2024' }],
+            elders: [{ name: '测试长老', currentTrophies: 4500, bestTrophies: 5000, townHall: 14, joinDate: '2024' }],
+            members: [{ name: '测试成员', currentTrophies: 4000, bestTrophies: 4500, townHall: 13, joinDate: '2024' }]
+        };
+        
+        // 清空现有内容
+        this.membersGrid.innerHTML = '';
+        
+        // 使用模拟数据渲染
+        mockData.leaders.forEach(leader => this.renderMemberCard(leader, 'leader'));
+        mockData.coLeaders.forEach(coLeader => this.renderMemberCard(coLeader, 'coLeader'));
+        mockData.elders.forEach(elder => this.renderMemberCard(elder, 'elder'));
+        this.createRegularMembersContainer(mockData.members);
     }
     
     renderMemberCard(member, role) {
@@ -258,7 +291,8 @@ export class MembersToggle {
 // 成员分类过滤类
 export class MembersFilter {
     constructor() {
-        this.filterButtons = utils.safeQuerySelectorAll('.inline-flex button[type="button"]');
+        // 修改选择器为更精确的匹配
+        this.filterButtons = utils.safeQuerySelectorAll('.flex.justify-center.mb-10 .inline-flex button[type="button"]');
         this.membersRenderer = null;
         this.currentFilter = 'all';
         
@@ -274,65 +308,99 @@ export class MembersFilter {
     init() {
         this.filterButtons.forEach((button, index) => {
             button.addEventListener('click', () => this.handleFilterClick(index));
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.handleFilterClick(index);
+                }
+            });
         });
     }
     
     handleFilterClick(index) {
-        const filters = ['all', 'leader', 'coLeader', 'elder', 'member'];
-        this.currentFilter = filters[index];
-        this.updateButtonStates();
-        this.filterMembers();
+        const filters = ['all', 'leaders', 'elders', 'members'];
+        const filter = filters[index];
+        
+        if (filter === this.currentFilter) return;
+        
+        this.currentFilter = filter;
+        this.updateButtonStates(index);
+        this.filterMembers(filter);
     }
     
-    updateButtonStates() {
+    updateButtonStates(activeIndex) {
         this.filterButtons.forEach((button, index) => {
-            const filters = ['all', 'leader', 'coLeader', 'elder', 'member'];
-            if (filters[index] === this.currentFilter) {
+            if (index === activeIndex) {
+                button.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
                 button.classList.add('bg-blue-600', 'text-white');
-                button.classList.remove('bg-gray-700', 'text-gray-300');
             } else {
-                button.classList.add('bg-gray-700', 'text-gray-300');
                 button.classList.remove('bg-blue-600', 'text-white');
+                button.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
             }
         });
     }
     
-    filterMembers() {
+    filterMembers(filter) {
         if (!this.membersRenderer) {
             console.warn('成员渲染器未设置');
             return;
         }
         
-        this.membersRenderer.renderMembers();
-        this.renderFilteredMembers();
+        // 修改为直接访问顶层属性
+        const { leaders, coLeaders, elders, members } = window.CLAN_CONFIG;
+        
+        switch (filter) {
+            case 'all':
+                this.membersRenderer.renderMembers();
+                break;
+            case 'leaders':
+                this.renderFilteredMembers([...leaders, ...coLeaders], '首领 & 副首领');
+                break;
+            case 'elders':
+                this.renderFilteredMembers(elders, '长老');
+                break;
+            case 'members':
+                this.renderFilteredMembers(members, '普通成员');
+                break;
+        }
     }
     
-    renderFilteredMembers() {
-        const memberCards = utils.safeQuerySelectorAll('.member-card');
-        
-        memberCards.forEach(card => {
-            const roleElement = card.querySelector('[class*="text-"]');
-            if (roleElement) {
-                const roleText = roleElement.textContent.trim();
-                const role = this.getRoleFromText(roleText);
-                
-                if (this.currentFilter === 'all' || role === this.currentFilter) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            }
+    // 在renderFilteredMembers方法中（约第386行）
+    renderFilteredMembers(memberList, title) {
+        const membersGrid = document.getElementById('members-grid');
+        if (!membersGrid) return;
+    
+        membersGrid.innerHTML = '';
+    
+        if (memberList.length === 0) {
+            membersGrid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <i class="fas fa-users text-gray-500 text-4xl mb-4"></i>
+                    <p class="text-gray-400 text-lg">暂无${title}</p>
+                </div>
+            `;
+            return;
+        }
+    
+        memberList.forEach(member => {
+            let role = 'member';
+            
+            // 修改前：
+            // const { leaders, coLeaders, elders } = window.CLAN_CONFIG.members;
+            
+            // 修改后：直接访问顶层属性
+            const { leaders, coLeaders, elders } = window.CLAN_CONFIG;
+            
+            // 仅使用成员名称来识别角色
+            const isLeader = leaders.some(leader => leader.name === member.name);
+            const isCoLeader = coLeaders.some(coLeader => coLeader.name === member.name);
+            const isElder = elders.some(elder => elder.name === member.name);
+            
+            if (isLeader) role = 'leader';
+            else if (isCoLeader) role = 'coLeader';
+            else if (isElder) role = 'elder';
+            
+            this.membersRenderer.renderMemberCard(member, role);
         });
-    }
-    
-    getRoleFromText(roleText) {
-        const roleMap = {
-            '首领': 'leader',
-            '副首领': 'coLeader',
-            '长老': 'elder',
-            '成员': 'member'
-        };
-        
-        return roleMap[roleText] || 'member';
     }
 }

@@ -103,10 +103,11 @@ const GAME_CONTENT = {
 
 // 暴露配置到全局window对象
 window.CLAN_CONFIG = {
-  constants: CONSTANTS,
-  base: CLAN_BASE,
-  members: MEMBERS_DATA,
-  game: GAME_CONTENT,
-  debug: false
+    constants: CONSTANTS,
+    base: CLAN_BASE,
+    // 修改这里：直接展开MEMBERS_DATA
+    ...MEMBERS_DATA,
+    game: GAME_CONTENT,
+    debug: false
 };
 

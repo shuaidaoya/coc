@@ -6,13 +6,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- 保障样式稳定加载（冗余兜底）：直接引入Tailwind与Font Awesome样式表 -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- 引入Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 配置Tailwind自定义颜色 -->
+    <!-- 先配置Tailwind，再加载CDN运行时，保证自定义颜色/工具类生效 -->
     <script>
-        tailwind.config = {
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
             theme: {
                 extend: {
                     colors: {
@@ -23,11 +24,12 @@
                         'bg-secondary': '#1e293b',
                         'text-primary': '#e2e8f0',
                         'text-secondary': '#94a3b8'
-                    },
-                },
+                    }
+                }
             }
-        }
+        };
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- 添加自定义工具类 -->
     <style type="text/tailwindcss">
@@ -1686,115 +1688,7 @@
             }
         }
         
-        // 新增：成员分类过滤类
-        class MembersFilter {
-            constructor() {
-                this.filterButtons = utils.safeQuerySelectorAll('.inline-flex button[type="button"]');
-                this.membersRenderer = null;
-                this.currentFilter = 'all';
-                
-                if (this.filterButtons.length > 0) {
-                    this.init();
-                }
-            }
-            
-            setMembersRenderer(renderer) {
-                this.membersRenderer = renderer;
-            }
-            
-            init() {
-                this.filterButtons.forEach((button, index) => {
-                    button.addEventListener('click', () => this.handleFilterClick(index));
-                    button.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.handleFilterClick(index);
-                        }
-                    });
-                });
-            }
-            
-            handleFilterClick(index) {
-                const filters = ['all', 'leaders', 'elders', 'members'];
-                const filter = filters[index];
-                
-                if (filter === this.currentFilter) return;
-                
-                this.currentFilter = filter;
-                this.updateButtonStates(index);
-                this.filterMembers(filter);
-            }
-            
-            updateButtonStates(activeIndex) {
-                this.filterButtons.forEach((button, index) => {
-                    if (index === activeIndex) {
-                        button.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
-                        button.classList.add('bg-blue-600', 'text-white');
-                    } else {
-                        button.classList.remove('bg-blue-600', 'text-white');
-                        button.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
-                    }
-                });
-            }
-            
-            filterMembers(filter) {
-                if (!this.membersRenderer) {
-                    console.warn('成员渲染器未设置');
-                    return;
-                }
-                
-                const { leaders, coLeaders, elders, members } = window.CLAN_CONFIG.members;
-                
-                switch (filter) {
-                    case 'all':
-                        this.membersRenderer.renderMembers();
-                        break;
-                    case 'leaders':
-                        this.renderFilteredMembers([...leaders, ...coLeaders], '首领 & 副首领');
-                        break;
-                    case 'elders':
-                        this.renderFilteredMembers(elders, '长老');
-                        break;
-                    case 'members':
-                        this.renderFilteredMembers(members, '普通成员');
-                        break;
-                }
-            }
-            
-            renderFilteredMembers(memberList, title) {
-                const membersGrid = document.getElementById('members-grid');
-                if (!membersGrid) return;
-
-                membersGrid.innerHTML = '';
-
-                if (memberList.length === 0) {
-                    membersGrid.innerHTML = `
-                        <div class="col-span-full text-center py-12">
-                            <i class="fas fa-users text-gray-500 text-4xl mb-4"></i>
-                            <p class="text-gray-400 text-lg">暂无${title}</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                memberList.forEach(member => {
-                    let role = 'member';
-                    const { leaders, coLeaders, elders } = window.CLAN_CONFIG.members;
-
-                    // 仅使用成员名称来识别角色（因为没有tag属性）
-                    const isLeader = leaders.some(leader => leader.name === member.name);
-                    const isCoLeader = coLeaders.some(coLeader => coLeader.name === member.name);
-                    const isElder = elders.some(elder => elder.name === member.name);
-
-                    if (isLeader) role = 'leader';
-                    else if (isCoLeader) role = 'coLeader';
-                    else if (isElder) role = 'elder';
-
-                    this.membersRenderer.renderMemberCard(member, role);
-                });
-            }
-        }
-        
+ 
         // 错误处理类
         class ErrorHandler {
             constructor() {
@@ -2177,6 +2071,10 @@
         }
         
         // 成员折叠管理类
-    </script>
+        
+        </script>
+        <!-- 使用模块化脚本加载应用，确保成员数据正确渲染 -->
+        <script src="config.js"></script>
+        <script type="module" src="js/main.js"></script>
 </body>
 </html>
